@@ -1,0 +1,140 @@
+<div class="flex flex-col md:flex-row min-h-screen">
+
+    <div class="md:ml-[12rem] py-6 px-4 md:px-12 basis-1/2 my-auto mr-20">
+
+        <p class="text-gray-700 font-bold text-4xl text-left">
+            Let's get you <span class="text-blue-500">onboard</span>.
+        </p>
+        <div class="mt-6 flex flex-row">
+
+            <div [ngClass]="focus == 1 ? 'border-blue-500 text-blue-500': 'border-gray-400 text-gray-400'"
+                class="m-2 w-60 p-4 border rounded shadow text-center">
+                <p><i class="text-3xl m-1 fas fa-id-card-alt"></i></p>
+                <p> Enter your personal details</p>
+            </div>
+
+            <div [ngClass]="focus == 2 ? 'border-blue-500 text-blue-500': 'border-gray-400 text-gray-400'"
+                class="m-2 w-60 p-4 border rounded shadow text-center">
+                <p><i class="text-3xl m-1 fas fa-credit-card"></i></p>
+                <p> Enter your bank details</p>
+            </div>
+
+            <div [ngClass]="focus == 3 ? 'border-blue-500 text-blue-500': 'border-gray-400 text-gray-400'"
+                class="m-2 w-60 p-4 border rounded shadow text-center">
+                <p><i class="text-3xl m-1 fas fa-file-upload"></i></p>
+                <p> Upload documents</p>
+            </div>
+
+        </div>
+        <form>
+            <div *ngIf="focus == 1" class="grid grid-cols-2 gap-4 py-10">
+
+                <div>
+                    <label for="firstname"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">First Name</label>
+                    <input type="text" name="firstname" id="firstname"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Enter your first name" required="">
+                </div>
+                <div>
+                    <label for="lastname"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Last Name</label>
+                    <input type="text" name="lastname" id="lastname"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Enter your last name" required="">
+                </div>
+                <div>
+                    <label for="aadhar"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Aadhar</label>
+                    <input type="number" name="aadhar" id="aadhar"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Enter your Aadhar" required="">
+                </div>
+                <div>
+                    <label for="pan"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">PAN</label>
+                    <input type="text" name="pan" id="pan"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Enter your PAN" required="">
+                </div>
+                <div>
+                    <label for="address1"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Address Line
+                        1</label>
+                    <input type="text" name="address1" id="address1"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Apartment no, Building, Street" required="">
+                </div>
+                <div>
+                    <label for="address2"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Address Line
+                        2</label>
+                    <input type="text" name="address2" id="address2"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Town, State" required="">
+                </div>
+
+            </div>
+
+            <!--Bank details-->
+            <div *ngIf="focus == 2" class="grid grid-cols-2 gap-4 py-10">
+
+                <div>
+                    <label for="accountno"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Account Number</label>
+                    <input type="text" name="accountno" id="accountno"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Enter your account number" required="">
+                </div>
+                <div>
+                    <label for="ifsccode"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">IFSC</label>
+                    <input type="text" name="ifsccode" id="ifsccode"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Enter IFSC" required="">
+                </div>
+                <div>
+                    <label for="bank"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Bank</label>
+                    <input type="text" name="bank" id="bank"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Bank Name" required="">
+                </div>
+                <div>
+                    <label for="branch"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Branch</label>
+                    <input type="text" name="branch" id="branch"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Branch" required="">
+                </div>
+                <div>
+                    <label for="bankaddress"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Address
+                    </label>
+                    <input type="text" name="bankaddress" id="bankaddress"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Bank Address" required="">
+                </div>
+                <div>
+                    <label for="address2"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Address Line
+                        2</label>
+                    <input type="text" name="address2" id="address2"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Town, State" required="">
+                </div>
+
+            </div>
+
+
+            <button class="mt-10 px-6 py-4 text-xs md:text-base font-semibold rounded-md bg-blue-500 text-white"
+                    type="submit">
+                    Create Account
+            </button>
+
+        </form>
+
+
+    </div>
+
+</div>
