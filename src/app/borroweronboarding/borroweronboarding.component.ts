@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class BorroweronboardingComponent implements OnInit {
   public focus: number;
   constructor() {
-    this.focus = 2;
+    this.focus = 4;
   }
 
   ngOnInit(): void {

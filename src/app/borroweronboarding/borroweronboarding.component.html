@@ -25,6 +25,12 @@
                 <p> Upload documents</p>
             </div>
 
+            <div [ngClass]="focus == 4 ? 'border-blue-500 text-blue-500': 'border-gray-400 text-gray-400'"
+                class="m-2 w-60 p-4 border rounded shadow text-center">
+                <p><i class="text-3xl m-1 fas fa-user-check"></i></p>
+                <p> Referral</p>
+            </div>
+
         </div>
         <form>
             <div *ngIf="focus == 1" class="grid grid-cols-2 gap-4 py-10">
@@ -85,6 +91,88 @@
                     <input type="text" name="accountno" id="accountno"
                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="Enter your account number" required="">
+                </div>
+                <div>
+                    <label for="ifsccode"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">IFSC</label>
+                    <input type="text" name="ifsccode" id="ifsccode"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Enter IFSC" required="">
+                </div>
+                <div>
+                    <label for="bank"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Bank</label>
+                    <input type="text" name="bank" id="bank"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Bank Name" required="">
+                </div>
+                <div>
+                    <label for="branch"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Branch</label>
+                    <input type="text" name="branch" id="branch"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Branch" required="">
+                </div>
+                <div>
+                    <label for="bankaddress"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Address
+                    </label>
+                    <input type="text" name="bankaddress" id="bankaddress"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Bank Address" required="">
+                </div>
+                <div>
+                    <label for="address2"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Address Line
+                        2</label>
+                    <input type="text" name="address2" id="address2"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Town, State" required="">
+                </div>
+
+            </div>
+
+            <!--Upload documents-->
+            <div *ngIf="focus == 3" class="grid grid-cols-2 gap-4 py-10">
+
+                <div>
+                    <label for="bankstatement"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Bank Statement of last 6 months</label>
+                        <input type="file" class="px-6 py-4 text-xs md:text-base font-semibold rounded-md" id="bankstatement" name="bankstatement"> 
+                        <input type="submit" value="Upload" class="w-36 mx-6 px-2 py-2 text-xs rounded-md bg-blue-500 text-white">
+                </div>
+                <div>
+                    <label for="itreturns"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">IT Returns</label>
+                        <input type="file" class="px-6 py-4 text-xs md:text-base font-semibold rounded-md" id="itreturns" name="itreturns"> 
+                        <input type="submit" value="Upload" class="w-36 mx-6 px-2 py-2 text-xs rounded-md bg-blue-500 text-white">
+                </div>
+                <div>
+                    <label for="companyid"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Employer issued ID Card</label>
+                        <input type="file" class="px-6 py-4 text-xs md:text-base font-semibold rounded-md" id="companyid" name="companyid"> 
+                        <input type="submit" value="Upload" class="w-36 mx-6 px-2 py-2 text-xs rounded-md bg-blue-500 text-white">
+                </div>
+                <!-- <div>
+                    <label for="address2"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Address Line
+                        2</label>
+                    <input type="text" name="address2" id="address2"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Town, State" required="">
+                </div> -->
+
+            </div>
+
+            <!--Referral details-->
+            <div *ngIf="focus == 4" class="grid grid-cols-2 gap-4 py-10">
+
+                <div>
+                    <label for="referralname"
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Reference Name</label>
+                    <input type="text" name="referralname" id="referralname"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Enter your professional reference" required="">
                 </div>
                 <div>
                     <label for="ifsccode"
