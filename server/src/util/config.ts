@@ -22,7 +22,7 @@ export const LOGOUT_URL =
 
 export const HOST = process.env.HOST || (process.env.WEBSITE_HOSTNAME ? `https://${process.env.WEBSITE_HOSTNAME}` : '');
 export const ROOT_URL = HOST ? HOST : `http://localhost:${PORT}`;
-export const TIMEOUT = process.env.TIMEOUT ? parseInt(process.env.TIMEOUT, 0) : 6000;
+export const TIMEOUT = process.env.TIMEOUT ? parseInt(process.env.TIMEOUT, 0) : 30000;
 
 export const LOGIN_URL = `${ROOT_URL}/login`;
 

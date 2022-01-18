@@ -5,19 +5,21 @@ import { Request, Response } from 'express';
 //import passport from 'passport';
 //import path from 'path';
 //import lusca from 'lusca';
-//import { ClientRequest } from 'http';
-
+import { ClientRequest } from 'http';
+import logger from './util/logger';
 
 
 import { PORT, SESSION_SECRET, TIMEOUT, FFDC_URL } from './util/config';
-//const httpPorxy = require('http-proxy');
-//const queryString = require('querystring');
+const httpPorxy = require('http-proxy');
+const queryString = require('querystring');
 
 // Controllers (route handlers)
 
 const compression = require('compression');
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
+const lusca = require('lusca');
 const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
@@ -27,6 +29,7 @@ var CustomerCollection;
 var LoanCollection;
 var LenderCollection;
 var BidCollection;
+var BorrowerCollection;
 
 MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongodb.net/Communiti?retryWrites=true&w=majority", function(err, database) {
   if(err) throw err;
@@ -36,6 +39,8 @@ MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongod
   LoanCollection =  db.db("Communiti").collection("loans");
   LenderCollection =  db.db("Communiti").collection("lenders");
   BidCollection =  db.db("Communiti").collection("bids");
+
+  BorrowerCollection = db.db("Communiti").collection("borrowers");
   // Start the application after the database connection is ready
  
   console.log("connected to db");
@@ -44,12 +49,20 @@ MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongod
 
 // Create Express server
 const app = express();
-// const proxy = httpPorxy.createProxyServer({
-//   changeOrigin: true,
-//   proxyTimeout: TIMEOUT,
-//   secure: false,
-//   timeout: TIMEOUT
-// });
+//const cors = require('cors');
+// const corsOptions ={
+//     origin:'http://localhost:3000', 
+//     credentials:true,            //access-control-allow-credentials:true
+//     optionSuccessStatus:200
+// }
+// app.use(cors(corsOptions));
+//app.use(cors());
+const proxy = httpPorxy.createProxyServer({
+  changeOrigin: true,
+  proxyTimeout: TIMEOUT,
+  secure: false,
+  timeout: TIMEOUT
+});
 
 function generateUUID() { // Public Domain/MIT
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -58,32 +71,33 @@ function generateUUID() { // Public Domain/MIT
     });
 }
 
-// proxy.on('proxyReq', (proxyReq: ClientRequest, req: Request, res: Response, options: any) => {
-//   if (req.body.enterpriseName) {
-//     // const user: any = req.user;
-//     console.log("I'm inside");
-//     // proxyReq.setHeader('Authorization', `Bearer ${user.access_token}`);
-//     proxyReq.setHeader('X-Request-ID', generateUUID());
-//     proxyReq.setHeader('Idempotency-Key', 'honeypunch');
-//   }
+proxy.on('proxyReq', (proxyReq: ClientRequest, req: Request, res: Response, options: any) => {
+  if (req.body.firstName || req.body.enterpriseName) {
+    // const user: any = req.user;
+    console.log("I'm inside");
+    // proxyReq.setHeader('Authorization', `Bearer ${user.access_token}`);
+    proxyReq.setHeader('X-Request-ID', generateUUID());
+    proxyReq.setHeader('Idempotency-Key', 'honeypunch');
+   // console.log(proxyReq);
+  }
 
-//   if (!req.body || !Object.keys(req.body).length) {
-//     return;
-//   }
-//   const contentType = proxyReq.getHeader('Content-Type');
-//   let bodyData;
+  if (!req.body || !Object.keys(req.body).length) {
+    return;
+  }
+  const contentType = proxyReq.getHeader('Content-Type');
+  let bodyData;
 
-//   if (contentType === 'application/json') {
-//     bodyData = JSON.stringify(req.body);
-//   }
-//   if (contentType === 'application/x-www-form-urlencoded') {
-//     bodyData = queryString.stringify(req.body);
-//   }
-//   if (bodyData) {
-//     proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
-//     proxyReq.write(bodyData);
-//   }
-// });
+  if (contentType === 'application/json') {
+    bodyData = JSON.stringify(req.body);
+  }
+  if (contentType === 'application/x-www-form-urlencoded') {
+    bodyData = queryString.stringify(req.body);
+  }
+  if (bodyData) {
+    proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
+    proxyReq.write(bodyData);
+  }
+});
 
 // Express configuration
 app.set('port', PORT);
@@ -107,8 +121,8 @@ app.use(
 //   logger.error(ex);
 // });
 
-// app.use(lusca.xframe('SAMEORIGIN'));
-// app.use(lusca.xssProtection(true));
+app.use(lusca.xframe('SAMEORIGIN'));
+app.use(lusca.xssProtection(true));
 
 // app.get('/login', passport.authenticate('oidc'));
 // app.get('/login/callback', (req, res, next) => {
@@ -146,28 +160,31 @@ app.use(
 
 
 // app.get('/api/user', auth.isAuthenticated, userController.getUser);
-// app.use('/proxy', (req, res) => {
-//   proxy.web(req, res, {
-//     target: `${FFDC_URL}/retail-banking/customers/v1`
-//   }, (err: any) => {
-//     logger.error(err.message);
-//     res.writeHead(500, {
-//       'Content-Type': 'text/plain'
-//     });
-//     res.end('An error occurred while proxying the request');
-//   });
-// });
-// app.use('/tokenproxy', (req, res) => {
-//   proxy.web(req, res, {
-//     target: `${FFDC_URL}/login/v1/sandbox/oidc/token`
-//   }, (err: any) => {
-//     logger.error(err.message);
-//     res.writeHead(500, {
-//       'Content-Type': 'text/plain'
-//     });
-//     res.end('An error occurred while proxying the request');
-//   });
-// });
+app.use('/proxy', (req, res) => {
+  console.log('inside middle proxy');
+  console.log(req.body);
+  proxy.web(req, res, {
+    target: `${FFDC_URL}/retail-banking/customers/v1`
+  }, (err: any) => {
+    logger.error(err);
+    logger.error(err.message);
+    res.writeHead(500, {
+      'Content-Type': 'text/plain'
+    });
+    res.end('An error occurred while proxying the request');
+  });
+});
+app.use('/tokenproxy', (req, res) => {
+  proxy.web(req, res, {
+    target: `${FFDC_URL}/login/v1/sandbox/oidc/token`
+  }, (err: any) => {
+    logger.error(err.message);
+    res.writeHead(500, {
+      'Content-Type': 'text/plain'
+    });
+    res.end('An error occurred while proxying the request');
+  });
+});
 
 // app.use('/predictdefault', (req, res) => {
 //   proxy.web(req, res, {
@@ -183,11 +200,11 @@ app.use(
 
 
 // //DB ROUTES
-// app.post('/insertCustomer', (req, res) => {
-//   console.log('POST request to insert customer');
-//   CustomerCollection.insertOne(req.body);
-//   res.send({"success":"done"});
-// })
+app.post('/insertBorrower', (req, res) => {
+  console.log('POST request to insert customer');
+  BorrowerCollection.insertOne(req.body);
+  res.send({"success":"done"});
+})
 
 // app.post('/insertLoan', (req, res) => {
 //   console.log('POST request to insert loan');
