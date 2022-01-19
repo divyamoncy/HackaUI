@@ -8,6 +8,7 @@ import { BorrowersignupComponent } from './borrowersignup/borrowersignup.compone
 import { HomeComponent } from './home/home.component';
 import { BorroweronboardingComponent } from './borroweronboarding/borroweronboarding.component';
 import { BorrowerdashboardComponent } from './borrowerdashboard/borrowerdashboard.component';
+import { LoanRequestComponent } from './loan-request/loan-request.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { BorrowerdashboardComponent } from './borrowerdashboard/borrowerdashboar
     BorrowersignupComponent,
     HomeComponent,
     BorroweronboardingComponent,
-    BorrowerdashboardComponent
+    BorrowerdashboardComponent,
+    LoanRequestComponent
   ],
   imports: [
     ReactiveFormsModule,

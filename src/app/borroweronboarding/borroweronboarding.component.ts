@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { ApiCallService } from '../api-call.service';
 import { DBService } from '../db.service';
 import { Address, Customer, DBBorrower, EmailAddress, fatcaDetails, Identification, PhoneNumber } from '../models/customer';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-borroweronboarding',
@@ -24,7 +25,8 @@ export class BorroweronboardingComponent implements OnInit {
   public dbBorrower: DBBorrower;
   //public resp: any;
   
-  constructor(public formBuilder: FormBuilder, private apiCallService: ApiCallService, public httpClient: HttpClient, private dbService: DBService) {
+  constructor(public formBuilder: FormBuilder, private apiCallService: ApiCallService, public httpClient: HttpClient, 
+    private dbService: DBService, private userService: UserService) {
     this.focus = 1;
     this.borrowerOnboardingForm = formBuilder.group({
       firstname: ['',Validators.required],
@@ -130,13 +132,12 @@ export class BorroweronboardingComponent implements OnInit {
     this.dbBorrower.guarantorphone = this.borrowerOnboardingForm.value.guarantorphone;
     this.dbBorrower.guarantoremail = this.borrowerOnboardingForm.value.guarantoremail;
     this.dbBorrower.guarantoraddress = this.borrowerOnboardingForm.value.guarantoraddress;
-    console.log(JSON.stringify(this.customer));
+    //console.log(JSON.stringify(this.customer));
     this.apiCallService.getToken().subscribe((res)=>{
-      console.log("Token");
-      console.log(res);
       this.apiCallService.postCustomer(this.customer, res).subscribe((resp)=>{
         console.log("Inside API call");
         console.log(resp.customerId);
+        this.userService.setBorrowerDetails(resp.customerId, "Borrower");
         this.dbBorrower.customerId = resp.customerId;
         this.dbService.insertBorrower(this.dbBorrower).subscribe((resp)=>{
           console.log("Inside DB");

@@ -4,11 +4,13 @@ import { BorrowerdashboardComponent } from './borrowerdashboard/borrowerdashboar
 import { BorroweronboardingComponent } from './borroweronboarding/borroweronboarding.component';
 import { BorrowersignupComponent } from './borrowersignup/borrowersignup.component';
 import { HomeComponent } from './home/home.component';
+import { LoanRequestComponent } from './loan-request/loan-request.component';
 
 const routes: Routes = [
   { path: 'borrowersignup', component: BorrowersignupComponent },
   {path: 'borroweronboarding', component: BorroweronboardingComponent},
   {path: 'borrowerdashboard', component: BorrowerdashboardComponent},
+  {path: 'loanrequest', component: LoanRequestComponent},
   { path: '', component: HomeComponent }
 ];
 

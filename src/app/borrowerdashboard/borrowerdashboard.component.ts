@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-borrowerdashboard',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BorrowerdashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  loanScreen(){
+    this.router.navigate(['/loanrequest']);
   }
 
 }
