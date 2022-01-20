@@ -73,6 +73,7 @@ export interface DBBorrower {
     guarantorphone: string;
     guarantoremail: string;
     guarantoraddress: string;
+    experience: number;
     
 }
 

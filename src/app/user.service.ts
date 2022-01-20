@@ -11,4 +11,7 @@ export class UserService {
     this.customerID = customerId;
     this.userType = userType;
   }
+  getCustomerId() {
+    return this.customerID;
+  }
 }

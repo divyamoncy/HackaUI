@@ -234,15 +234,15 @@ app.post('/insertBorrower', (req, res) => {
 //   }); 
 // });
 
-// app.get('/bids/:lenderid', function(req , res){
-//   console.log('GET request to get bids by lender id');
-//   BidCollection.find({"lenderId" : req.params.lenderid}).toArray(function(err, result) {
-//     if (err) throw err;
-//     console.log("found bids!!");
-//     console.log(result);
-//     res.send(result);
-//   }); 
-// });
+app.get('/borrower/:customerId', function(req , res){
+  console.log('GET request to get borrower details by customer id');
+  BidCollection.find({"customerId" : req.params.customerId}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log("found customer");
+    console.log(result);
+    res.send(result);
+  }); 
+});
 
 // app.get('/allbids', function(req , res){
 //   console.log('GET request to get all bids');
@@ -285,8 +285,8 @@ app.post('/insertBorrower', (req, res) => {
 //   }); 
 // });
 
-//const appFolder = path.join(__dirname, '../../src');
-const appFolder ='C:/Users/u723359/Desktop/Projects/HackaUI/dist/hacka-ui';
+const appFolder = path.join(__dirname, '../../dist/hacka-ui');
+
 // app.use(auth.isAuthenticated, express.static(appFolder, { fallthrough: true }), (rep, res) => {
 //   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 //   res.header('Access-Control-Allow-Origin', '*');

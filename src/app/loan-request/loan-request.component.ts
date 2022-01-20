@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DBService } from '../db.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-loan-request',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loan-request.component.css']
 })
 export class LoanRequestComponent implements OnInit {
-
-  constructor() { }
+  public instantAmount: number;
+  constructor(private dbService: DBService, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.dbService.getBorrowerDetailsByCustomerId(this.userService.getCustomerId()).subscribe((response)=>{
+      this.instantAmount = response.monthlysalary * 2;
+      this
+  });
   }
 
   createInstantLoan() {
@@ -19,5 +25,5 @@ export class LoanRequestComponent implements OnInit {
   createPersonalLoan() {
 
   }
-  
+
 }

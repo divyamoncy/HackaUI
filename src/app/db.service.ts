@@ -22,4 +22,9 @@ export class DBService {
           })
           .pipe(map((response) => response));
     }
+
+    getBorrowerDetailsByCustomerId(customerId): Observable<any> {
+      return this.httpClient.get<any>(`/borrowers/`+customerId)
+      .pipe(map((response) => response));
+    }
 }

@@ -44,12 +44,14 @@ export class BorroweronboardingComponent implements OnInit {
       bankaddress: ['', Validators.required],
       companyname: ['', Validators.required],
       monthlysalary: ['', Validators.required],
+      experience: ['', Validators.required],
       referralname: ['', Validators.required],
       referralphone: ['', Validators.required],
       guarantorname: ['', Validators.required],
       guarantorphone: ['', Validators.required],
       guarantoremail: ['', Validators.required],
       guarantoraddress: ['', Validators.required]
+      
   });
   }
 
@@ -126,6 +128,7 @@ export class BorroweronboardingComponent implements OnInit {
     this.dbBorrower.branch = this.borrowerOnboardingForm.value.branch;
     this.dbBorrower.bankaddress = this.borrowerOnboardingForm.value.bankaddress;
     this.dbBorrower.monthlysalary = this.borrowerOnboardingForm.value.monthlysalary;
+    this.dbBorrower.experience = this.borrowerOnboardingForm.value.experience;
     this.dbBorrower.referralname = this.borrowerOnboardingForm.value.referralname;
     this.dbBorrower.referralphone = this.borrowerOnboardingForm.value.referralphone;
     this.dbBorrower.guarantorname = this.borrowerOnboardingForm.value.guarantorname;
