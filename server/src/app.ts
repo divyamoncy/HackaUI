@@ -210,7 +210,7 @@ app.post('/insertBorrower', (req, res) => {
 
 app.get('/borrower/:customerId', function (req, res) {
   console.log('GET request to get borrower details by customer id');
-  BidCollection.find({ "customerId": req.params.customerId }).toArray(function (err, result) {
+  BorrowerCollection.find({ "customerId": req.params.customerId }).toArray(function (err, result) {
     if (err) throw err;
     console.log("found customer");
     console.log(result);

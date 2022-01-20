@@ -24,7 +24,8 @@ export class DBService {
     }
 
     getBorrowerDetailsByCustomerId(customerId): Observable<any> {
-      return this.httpClient.get<any>(`/borrowers/`+customerId)
+      customerId='029365'
+      return this.httpClient.get<any>(`/borrower/`+customerId)
       .pipe(map((response) => response));
     }
 }

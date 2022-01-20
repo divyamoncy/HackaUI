@@ -9,12 +9,14 @@ import { UserService } from '../user.service';
 })
 export class LoanRequestComponent implements OnInit {
   public instantAmount: number;
+  public personalAmount: number;
   constructor(private dbService: DBService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.dbService.getBorrowerDetailsByCustomerId(this.userService.getCustomerId()).subscribe((response)=>{
-      this.instantAmount = response.monthlysalary * 2;
-      this
+      console.log(response);
+      this.instantAmount = response[0].monthlysalary * 2;
+      this.personalAmount = response[0].monthlysalary * 5;
   });
   }
 
