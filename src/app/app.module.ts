@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { BorroweronboardingComponent } from './borroweronboarding/borroweronboarding.component';
 import { BorrowerdashboardComponent } from './borrowerdashboard/borrowerdashboard.component';
 import { LoanRequestComponent } from './loan-request/loan-request.component';
+import { LendersignupComponent } from './lendersignup/lendersignup.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LoanRequestComponent } from './loan-request/loan-request.component';
     HomeComponent,
     BorroweronboardingComponent,
     BorrowerdashboardComponent,
-    LoanRequestComponent
+    LoanRequestComponent,
+    LendersignupComponent
   ],
   imports: [
     ReactiveFormsModule,

@@ -5,13 +5,15 @@ import { BorroweronboardingComponent } from './borroweronboarding/borroweronboar
 import { BorrowersignupComponent } from './borrowersignup/borrowersignup.component';
 import { HomeComponent } from './home/home.component';
 import { LoanRequestComponent } from './loan-request/loan-request.component';
+import { LendersignupComponent } from './lendersignup/lendersignup.component';
 
 const routes: Routes = [
   { path: 'borrowersignup', component: BorrowersignupComponent },
   {path: 'borroweronboarding', component: BorroweronboardingComponent},
   {path: 'borrowerdashboard', component: BorrowerdashboardComponent},
   {path: 'loanrequest', component: LoanRequestComponent},
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
+  { path :'lendersignup', component:LendersignupComponent}
 ];
 
 @NgModule({
