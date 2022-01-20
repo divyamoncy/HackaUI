@@ -1,6 +1,15 @@
 # HackaUI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+## Steps to run
+
+1. Clone the repository.
+2. Run `npm install`.
+3. Change the DB name, username and password for MongoDB in app.ts file.
+4. Provide the FFDC_URL, SESSION_SECRET, CLIENT_ID, CLIENT_SECRET and PORT in .env file.
+5. Run `ng build` to build the Angular app.
+6. Run `npm run build:server` to build the server.
+7. Run `npm run start:server` to start the server.
+8. Open `http://localhost:3000/` in browser to see the app.
 
 ## Development server
 
