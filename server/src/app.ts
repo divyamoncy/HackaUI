@@ -1,10 +1,4 @@
 import { Request, Response } from 'express';
-//import compression from 'compression';
-//import bodyParser from 'body-parser';
-//import cookieSession from 'cookie-session';
-//import passport from 'passport';
-//import path from 'path';
-//import lusca from 'lusca';
 import { ClientRequest } from 'http';
 import logger from './util/logger';
 
@@ -31,18 +25,18 @@ var LenderCollection;
 var BidCollection;
 var BorrowerCollection;
 
-MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongodb.net/Communiti?retryWrites=true&w=majority", function(err, database) {
-  if(err) throw err;
+MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongodb.net/Communiti?retryWrites=true&w=majority", function (err, database) {
+  if (err) throw err;
 
   db = database;
-  CustomerCollection =  db.db("Communiti").collection("customers");
-  LoanCollection =  db.db("Communiti").collection("loans");
-  LenderCollection =  db.db("Communiti").collection("lenders");
-  BidCollection =  db.db("Communiti").collection("bids");
+  CustomerCollection = db.db("Communiti").collection("customers");
+  LoanCollection = db.db("Communiti").collection("loans");
+  LenderCollection = db.db("Communiti").collection("lenders");
+  BidCollection = db.db("Communiti").collection("bids");
 
   BorrowerCollection = db.db("Communiti").collection("borrowers");
   // Start the application after the database connection is ready
- 
+
   console.log("connected to db");
 });
 
@@ -65,20 +59,17 @@ const proxy = httpPorxy.createProxyServer({
 });
 
 function generateUUID() { // Public Domain/MIT
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 }
 
 proxy.on('proxyReq', (proxyReq: ClientRequest, req: Request, res: Response, options: any) => {
   if (req.body.firstName || req.body.enterpriseName) {
-    // const user: any = req.user;
     console.log("I'm inside");
-    // proxyReq.setHeader('Authorization', `Bearer ${user.access_token}`);
     proxyReq.setHeader('X-Request-ID', generateUUID());
     proxyReq.setHeader('Idempotency-Key', 'honeypunch');
-   // console.log(proxyReq);
   }
 
   if (!req.body || !Object.keys(req.body).length) {
@@ -116,10 +107,6 @@ app.use(
     httpOnly: true
   })
 );
-
-// auth.initialize(app).catch(ex => {
-//   logger.error(ex);
-// });
 
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
@@ -186,24 +173,11 @@ app.use('/tokenproxy', (req, res) => {
   });
 });
 
-// app.use('/predictdefault', (req, res) => {
-//   proxy.web(req, res, {
-//     target: `http://127.0.0.1:8080`
-//   }, (err: any) => {
-//     logger.error(err.message);
-//     res.writeHead(500, {
-//       'Content-Type': 'text/plain'
-//     });
-//     res.end('An error occurred while proxying the request');
-//   });
-// });
-
-
-// //DB ROUTES
+// DB Routes
 app.post('/insertBorrower', (req, res) => {
   console.log('POST request to insert customer');
   BorrowerCollection.insertOne(req.body);
-  res.send({"success":"done"});
+  res.send({ "success": "done" });
 })
 
 // app.post('/insertLoan', (req, res) => {
@@ -234,14 +208,14 @@ app.post('/insertBorrower', (req, res) => {
 //   }); 
 // });
 
-app.get('/borrower/:customerId', function(req , res){
+app.get('/borrower/:customerId', function (req, res) {
   console.log('GET request to get borrower details by customer id');
-  BidCollection.find({"customerId" : req.params.customerId}).toArray(function(err, result) {
+  BidCollection.find({ "customerId": req.params.customerId }).toArray(function (err, result) {
     if (err) throw err;
     console.log("found customer");
     console.log(result);
     res.send(result);
-  }); 
+  });
 });
 
 // app.get('/allbids', function(req , res){
@@ -286,12 +260,6 @@ app.get('/borrower/:customerId', function(req , res){
 // });
 
 const appFolder = path.join(__dirname, '../../dist/hacka-ui');
-
-// app.use(auth.isAuthenticated, express.static(appFolder, { fallthrough: true }), (rep, res) => {
-//   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.sendFile('index.html', { root: appFolder });
-// });
 
 app.use(express.static(appFolder), (rep, res) => {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
