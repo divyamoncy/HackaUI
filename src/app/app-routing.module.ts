@@ -6,6 +6,7 @@ import { BorrowersignupComponent } from './borrowersignup/borrowersignup.compone
 import { HomeComponent } from './home/home.component';
 import { LoanRequestComponent } from './loan-request/loan-request.component';
 import { LendersignupComponent } from './lendersignup/lendersignup.component';
+import { SigninComponent } from './signin/signin.component';
 
 const routes: Routes = [
   { path: 'borrowersignup', component: BorrowersignupComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'borrowerdashboard', component: BorrowerdashboardComponent},
   {path: 'loanrequest', component: LoanRequestComponent},
   { path: '', component: HomeComponent },
-  { path :'lendersignup', component:LendersignupComponent}
+  { path :'lendersignup', component:LendersignupComponent},
+  {path : 'signin', component : SigninComponent}
 ];
 
 @NgModule({
