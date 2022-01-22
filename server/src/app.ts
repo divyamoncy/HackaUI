@@ -24,19 +24,23 @@ var LoanCollection;
 var LenderCollection;
 var BidCollection;
 var BorrowerCollection;
+var RatesPersonalCollection;
+var CategoryCollection;
 
 MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongodb.net/Communiti?retryWrites=true&w=majority", function (err, database) {
   if (err) throw err;
 
   db = database;
   CustomerCollection = db.db("Communiti").collection("customers");
-  LoanCollection = db.db("Communiti").collection("loans");
+  //LoanCollection = db.db("Communiti").collection("loans");
   LenderCollection = db.db("Communiti").collection("lenders");
   BidCollection = db.db("Communiti").collection("bids");
 
   BorrowerCollection = db.db("Communiti").collection("borrowers");
+  LoanCollection = db.db("Communiti").collection("loans");
+  RatesPersonalCollection = db.db("Communiti").collection("ratespersonal");
+  CategoryCollection = db.db("Communiti").collection("category");
   // Start the application after the database connection is ready
-
   console.log("connected to db");
 });
 
@@ -180,11 +184,11 @@ app.post('/insertBorrower', (req, res) => {
   res.send({ "success": "done" });
 })
 
-// app.post('/insertLoan', (req, res) => {
-//   console.log('POST request to insert loan');
-//   LoanCollection.insertOne(req.body);
-//   res.send({"success":"done"});
-// })
+app.post('/insertLoan', (req, res) => {
+  console.log('POST request to insert loan');
+  LoanCollection.insertOne(req.body);
+  res.send({"success":"done"});
+})
 
 // app.post('/insertLender', (req, res) => {
 //   console.log('POST request to insert lender');
@@ -213,6 +217,16 @@ app.get('/borrower/:customerId', function (req, res) {
   BorrowerCollection.find({ "customerId": req.params.customerId }).toArray(function (err, result) {
     if (err) throw err;
     console.log("found customer");
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.get('/personalLoan/:category/:experience', function (req, res) {
+  console.log('GET request to get personal loan amount');
+  RatesPersonalCollection.find({ "category": req.params.category, "experience": parseInt(req.params.experience) }).toArray(function (err, result) {
+    if (err) throw err;
+    console.log("found rates");
     console.log(result);
     res.send(result);
   });

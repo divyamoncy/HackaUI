@@ -128,6 +128,7 @@ export class BorroweronboardingComponent implements OnInit {
     this.dbBorrower.branch = this.borrowerOnboardingForm.value.branch;
     this.dbBorrower.bankaddress = this.borrowerOnboardingForm.value.bankaddress;
     this.dbBorrower.monthlysalary = this.borrowerOnboardingForm.value.monthlysalary;
+    this.dbBorrower.companyName = this.borrowerOnboardingForm.value.companyname;
     this.dbBorrower.experience = this.borrowerOnboardingForm.value.experience;
     this.dbBorrower.referralname = this.borrowerOnboardingForm.value.referralname;
     this.dbBorrower.referralphone = this.borrowerOnboardingForm.value.referralphone;

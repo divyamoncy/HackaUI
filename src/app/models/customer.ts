@@ -66,7 +66,7 @@ export interface DBBorrower {
     branch: string;
     bankaddress: string;
     monthlysalary: number;
-    companyname: string;
+    companyName: string;
     referralname: string;
     referralphone: string;
     guarantorname: string;
