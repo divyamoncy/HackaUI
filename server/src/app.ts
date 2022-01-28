@@ -70,7 +70,7 @@ function generateUUID() { // Public Domain/MIT
 }
 
 proxy.on('proxyReq', (proxyReq: ClientRequest, req: Request, res: Response, options: any) => {
-  if (req.body.firstName || req.body.enterpriseName) {
+  if (req.body.firstName || req.body.enterpriseName || req.body.customerId) {
     console.log("I'm inside");
     proxyReq.setHeader('X-Request-ID', generateUUID());
     proxyReq.setHeader('Idempotency-Key', 'honeypunch');
@@ -155,7 +155,7 @@ app.use('/proxy', (req, res) => {
   console.log('inside middle proxy');
   console.log(req.body);
   proxy.web(req, res, {
-    target: `${FFDC_URL}/retail-banking/customers/v1`
+    target: `${FFDC_URL}/retail-banking`
   }, (err: any) => {
     logger.error(err);
     logger.error(err.message);
@@ -202,15 +202,15 @@ app.post('/insertLoan', (req, res) => {
 //   res.send({"success":"done"});
 // })
 
-// app.get('/:id/loans', function(req , res){
-//   console.log('GET request to get loans by customer ID');
-//   LoanCollection.find({"customerId" : req.params.id}).toArray(function(err, result) {
-//     if (err) throw err;
-//     console.log("found loans");
-//     console.log(result);
-//     res.send(result);
-//   }); 
-// });
+app.get('/:id/loans', function(req , res){
+  console.log('GET request to get loans by customer ID');
+  LoanCollection.find({"customerId" : req.params.id}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log("found loans");
+    console.log(result);
+    res.send(result);
+  }); 
+});
 
 app.get('/borrower/:customerId', function (req, res) {
   console.log('GET request to get borrower details by customer id');

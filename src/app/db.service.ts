@@ -45,4 +45,9 @@ export class DBService {
       return this.httpClient.get<any>(`/personalLoan/`+category+`/`+experience)
       .pipe(map((response) => response));
     }
+
+    getCustomerLoans( customerId ): Observable<any> {
+      return this.httpClient.get<any>(`/`+customerId+`/loans`)
+      .pipe(map((response) => response));
+    }
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Customer } from './models/customer';
 import { ROOT_API } from './config';
+import { Account } from './models/account';
 
 @Injectable({
   providedIn: 'root'
@@ -90,12 +91,30 @@ export class ApiCallService {
     // var x = JSON.stringify(customer);
     // console.log(x);
     return this.httpClient.post<any>(
-      `${ROOT_API}/personal-customers`, customer, {
+      `${ROOT_API}/customers/v1/personal-customers`, customer, {
         headers: { 
           'Authorization': `Bearer ${access_token}`,
           'Content-Type': 'application/json' }
       })
       .pipe(map((response) => response));
+}
+
+postAccount(
+  account:Account,
+  access_token
+): Observable<any> {
+  
+  console.log(`Bearer ${access_token}`);
+  console.log("AFter token");
+  // var x = JSON.stringify(customer);
+  // console.log(x);
+  return this.httpClient.post<any>(
+    `${ROOT_API}/current-and-savings-account/onboarding/v1/accounts/currentsavings`, account, {
+      headers: { 
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json' }
+    })
+    .pipe(map((response) => response));
 }
 
   getToken(
@@ -116,6 +135,7 @@ export class ApiCallService {
       })
       .pipe(map((response) => response['access_token']));
   }
+
 
   
 

@@ -15,6 +15,7 @@ export class LoanRequestComponent implements OnInit {
   public loanRequest: FormGroup;
   public categoryMapping;
   public companyName:string;
+  public focus:number;
   constructor(private dbService: DBService, private userService: UserService, public formBuilder: FormBuilder) {
     this.loanRequest = formBuilder.group({
       loanamount: ['', Validators.required],
@@ -29,6 +30,7 @@ export class LoanRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.focus = 1;
     this.dbService.getBorrowerDetailsByCustomerId(this.userService.getCustomerId()).subscribe((response) => {
       console.log(response);
       this.customerId = response[0].customerId;
@@ -43,11 +45,11 @@ export class LoanRequestComponent implements OnInit {
   }
 
   createInstantLoan() {
-
+    this.focus = 3;
   }
 
   createPersonalLoan() {
-
+    this.focus = 2;
   }
 
   insertPersonalLoan() {
@@ -63,6 +65,21 @@ export class LoanRequestComponent implements OnInit {
 
 
   }
+
+  insertInstantLoan() {
+    var data = {};
+    data["customerId"] = this.customerId;
+    data["amount"] = this.loanRequest.value.loanamount;
+    data["purpose"] = this.loanRequest.value.loanpurpose;
+    data["loanType"] = "Instant";
+    data["requestDate"] = new Date().toISOString().split("T")[0];
+    this.dbService.insertLoan(data).subscribe((response) => {
+      console.log(response);
+    });
+
+
+  }
+
   formatLabel(value: number) {
     if (value >= 1000) {
       return Math.round(value / 1000) + 'k';
