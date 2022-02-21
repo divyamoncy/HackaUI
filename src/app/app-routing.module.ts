@@ -5,7 +5,6 @@ import { BorroweronboardingComponent } from './borroweronboarding/borroweronboar
 import { BorrowersignupComponent } from './borrowersignup/borrowersignup.component';
 import { HomeComponent } from './home/home.component';
 import { LoanRequestComponent } from './loan-request/loan-request.component';
-import { LenderOnboardingComponent } from './lender-onboarding/lender-onboarding.component';
 import { NgoSignUpComponent } from './ngo-sign-up/ngo-sign-up.component';
 import { OrganisationOnboardingComponent } from './organisation-onboarding/organisation-onboarding.component';
 
@@ -16,7 +15,6 @@ const routes: Routes = [
   {path: 'loanrequest', component: LoanRequestComponent},
   { path: 'organisationOnboarding', component: OrganisationOnboardingComponent },
   { path: 'ngoSignUp', component: NgoSignUpComponent },
-  { path: 'NgoSignUpComponent', component: LenderOnboardingComponent },
   { path: '', component: HomeComponent }
 ];
 
