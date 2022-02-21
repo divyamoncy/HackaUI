@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ApiCallService } from '../api-call.service';
 import { DBService } from '../db.service';
+import { Account, AccountAdditionalDetails } from '../models/account';
 import { Address, Customer, DBBorrower, EmailAddress, fatcaDetails, Identification, PhoneNumber } from '../models/customer';
 import { UserService } from '../user.service';
 
@@ -23,10 +25,12 @@ export class BorroweronboardingComponent implements OnInit {
   public identification: Identification;
   public fatcaDetails: fatcaDetails;
   public dbBorrower: DBBorrower;
+  public account: Account;
+  public accountDetails: AccountAdditionalDetails;
   //public resp: any;
   
   constructor(public formBuilder: FormBuilder, private apiCallService: ApiCallService, public httpClient: HttpClient, 
-    private dbService: DBService, private userService: UserService) {
+    private dbService: DBService, private userService: UserService, private router: Router) {
     this.focus = 1;
     this.borrowerOnboardingForm = formBuilder.group({
       firstname: ['',Validators.required],
@@ -80,6 +84,8 @@ export class BorroweronboardingComponent implements OnInit {
     this.dbBorrower = {} as DBBorrower;
     this.identification = {} as Identification;
     this.fatcaDetails = {} as fatcaDetails;
+    this.account = {} as Account;
+    this.accountDetails = {} as AccountAdditionalDetails;
     this.phoneNumber = [];
     this.address = [];
     this.emailAddress = [];
@@ -128,6 +134,7 @@ export class BorroweronboardingComponent implements OnInit {
     this.dbBorrower.branch = this.borrowerOnboardingForm.value.branch;
     this.dbBorrower.bankaddress = this.borrowerOnboardingForm.value.bankaddress;
     this.dbBorrower.monthlysalary = this.borrowerOnboardingForm.value.monthlysalary;
+    this.dbBorrower.companyName = this.borrowerOnboardingForm.value.companyname;
     this.dbBorrower.experience = this.borrowerOnboardingForm.value.experience;
     this.dbBorrower.referralname = this.borrowerOnboardingForm.value.referralname;
     this.dbBorrower.referralphone = this.borrowerOnboardingForm.value.referralphone;
@@ -135,6 +142,7 @@ export class BorroweronboardingComponent implements OnInit {
     this.dbBorrower.guarantorphone = this.borrowerOnboardingForm.value.guarantorphone;
     this.dbBorrower.guarantoremail = this.borrowerOnboardingForm.value.guarantoremail;
     this.dbBorrower.guarantoraddress = this.borrowerOnboardingForm.value.guarantoraddress;
+    
     //console.log(JSON.stringify(this.customer));
     this.apiCallService.getToken().subscribe((res)=>{
       this.apiCallService.postCustomer(this.customer, res).subscribe((resp)=>{
@@ -142,6 +150,19 @@ export class BorroweronboardingComponent implements OnInit {
         console.log(resp.customerId);
         this.userService.setBorrowerDetails(resp.customerId, "Borrower");
         this.dbBorrower.customerId = resp.customerId;
+        this.account.customerId = resp.customerId;
+        this.account.productId = "01010DEFAULTUSD";
+        this.account.accountOwnership = "SOLE";
+        this.accountDetails.modeOfOperation = "SOLE";
+        this.accountDetails.postingRestriction = "NONE";
+        this.account.accountAdditionalDetails = this.accountDetails;
+        this.apiCallService.getToken().subscribe((tok)=>{
+          this.apiCallService.postAccount(this.account, tok).subscribe((response)=>{
+            console.log(response.accountId);
+            this.userService.setAccountId(response.accountId);
+            this.router.navigate(['/borrowerdashboard']);
+          });
+        });
         this.dbService.insertBorrower(this.dbBorrower).subscribe((resp)=>{
           console.log("Inside DB");
           console.log(resp);

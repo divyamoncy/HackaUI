@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatSliderModule } from '@angular/material/slider';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BorrowersignupComponent } from './borrowersignup/borrowersignup.component';
@@ -12,6 +13,8 @@ import { LoanRequestComponent } from './loan-request/loan-request.component';
 import { LendersignupComponent } from './lendersignup/lendersignup.component';
 import { SigninComponent } from './signin/signin.component';
 import { LenderonboardingComponent } from './lenderonboarding/lenderonboarding.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrganisationOnboardingComponent } from './organisation-onboarding/organisation-onboarding.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +27,15 @@ import { LenderonboardingComponent } from './lenderonboarding/lenderonboarding.c
     LendersignupComponent,
     SigninComponent,
     LenderonboardingComponent
+    OrganisationOnboardingComponent,
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
+    MatSliderModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

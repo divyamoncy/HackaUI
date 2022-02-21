@@ -1,5 +1,5 @@
 export interface Address {
-    addressType: 'RESIDENTIAL';
+    addressType: string;
     country: 'IN';
     line1: string;
     line2: string;
@@ -11,12 +11,12 @@ export interface Address {
 
   }
 export interface PhoneNumber {
-    type: 'RESIDENTIAL';
+    type: string;
     number: string;
 
 }
 export interface Identification {
-    type: 'ARNU';
+    type: string;
     id: string;
 
 }
@@ -27,7 +27,7 @@ export interface fatcaDetails {
 
 }
 export interface EmailAddress {
-    type: 'HOME';
+    type: string;
     address: string;
 
 }
@@ -66,7 +66,7 @@ export interface DBBorrower {
     branch: string;
     bankaddress: string;
     monthlysalary: number;
-    companyname: string;
+    companyName: string;
     referralname: string;
     referralphone: string;
     guarantorname: string;
@@ -106,6 +106,38 @@ export interface DBLender {
     guarantoraddress: string;
     experience: number;
     
+}
+
+export interface OrganisationCustomer {
+    enterpriseName: string;
+    registrationNumber : string;
+    countryOfRegistration: 'IN';
+    address?: Address[];
+    phoneNumber: PhoneNumber[];
+    emailAddress: EmailAddress[];
+    kycCheckRequired: 'CORE-DEFINED';
+}
+
+export interface OrganisationCustomerDB {
+    enterpriseName: string;
+    registrationNumber : string;
+    countryOfRegistration: 'IN';
+    address?: Address[];
+    phoneNumber: PhoneNumber[];
+    emailAddress: EmailAddress[];
+    kycCheckRequired: 'CORE-DEFINED';
+    customerId: string;
+    dirFirstName: string;
+    dirLastName: string;
+    pan: string;
+    incorporationDate?: string;
+    cin: string;
+    fatcaDetails: fatcaDetails;
+    accountno: string;
+    ifsccode: string;
+    bank: string;
+    branch: string;
+    bankaddress: string;
 }
 
 

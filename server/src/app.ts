@@ -24,19 +24,26 @@ var LoanCollection;
 var LenderCollection;
 var BidCollection;
 var BorrowerCollection;
+var RatesPersonalCollection;
+var CategoryCollection;
+var OrganisationCollection;
+var LenderCollection;
 
 MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongodb.net/Communiti?retryWrites=true&w=majority", function (err, database) {
   if (err) throw err;
 
   db = database;
   CustomerCollection = db.db("Communiti").collection("customers");
-  LoanCollection = db.db("Communiti").collection("loans");
+  //LoanCollection = db.db("Communiti").collection("loans");
   LenderCollection = db.db("Communiti").collection("lenders");
   BidCollection = db.db("Communiti").collection("bids");
+  OrganisationCollection = db.db("Communiti").collection("Organisation");
 
   BorrowerCollection = db.db("Communiti").collection("borrowers");
+  LoanCollection = db.db("Communiti").collection("loans");
+  RatesPersonalCollection = db.db("Communiti").collection("ratespersonal");
+  CategoryCollection = db.db("Communiti").collection("category");
   // Start the application after the database connection is ready
-
   console.log("connected to db");
 });
 
@@ -66,7 +73,7 @@ function generateUUID() { // Public Domain/MIT
 }
 
 proxy.on('proxyReq', (proxyReq: ClientRequest, req: Request, res: Response, options: any) => {
-  if (req.body.firstName || req.body.enterpriseName) {
+  if (req.body.firstName || req.body.enterpriseName || req.body.customerId) {
     console.log("I'm inside");
     proxyReq.setHeader('X-Request-ID', generateUUID());
     proxyReq.setHeader('Idempotency-Key', 'honeypunch');
@@ -151,7 +158,7 @@ app.use('/proxy', (req, res) => {
   console.log('inside middle proxy');
   console.log(req.body);
   proxy.web(req, res, {
-    target: `${FFDC_URL}/retail-banking/customers/v1`
+    target: `${FFDC_URL}/retail-banking`
   }, (err: any) => {
     logger.error(err);
     logger.error(err.message);
@@ -185,6 +192,16 @@ app.post('/insertLender', (req, res) => {
   LenderCollection.insertOne(req.body);
   res.send({ "success": "done" });
 })
+app.post('/insertLoan', (req, res) => {
+  console.log('POST request to insert loan');
+  LoanCollection.insertOne(req.body);
+  res.send({"success":"done"});
+})
+app.post('/insertOrganisation', (req, res) => {
+  console.log('POST request to insert organisation');
+  OrganisationCollection.insertOne(req.body);
+  res.send({"success":"done"});
+})
 
 // app.post('/insertLoan', (req, res) => {
 //   console.log('POST request to insert loan');
@@ -204,21 +221,31 @@ app.post('/insertLender', (req, res) => {
 //   res.send({"success":"done"});
 // })
 
-// app.get('/:id/loans', function(req , res){
-//   console.log('GET request to get loans by customer ID');
-//   LoanCollection.find({"customerId" : req.params.id}).toArray(function(err, result) {
-//     if (err) throw err;
-//     console.log("found loans");
-//     console.log(result);
-//     res.send(result);
-//   }); 
-// });
+app.get('/:id/loans', function(req , res){
+  console.log('GET request to get loans by customer ID');
+  LoanCollection.find({"customerId" : req.params.id}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log("found loans");
+    console.log(result);
+    res.send(result);
+  }); 
+});
 
 app.get('/borrower/:customerId', function (req, res) {
   console.log('GET request to get borrower details by customer id');
   BorrowerCollection.find({ "customerId": req.params.customerId }).toArray(function (err, result) {
     if (err) throw err;
     console.log("found customer");
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.get('/personalLoan/:category/:experience', function (req, res) {
+  console.log('GET request to get personal loan amount');
+  RatesPersonalCollection.find({ "category": req.params.category, "experience": parseInt(req.params.experience) }).toArray(function (err, result) {
+    if (err) throw err;
+    console.log("found rates");
     console.log(result);
     res.send(result);
   });

@@ -8,6 +8,8 @@ import { LoanRequestComponent } from './loan-request/loan-request.component';
 import { LendersignupComponent } from './lendersignup/lendersignup.component';
 import { SigninComponent } from './signin/signin.component';
 import { LenderonboardingComponent } from './lenderonboarding/lenderonboarding.component';
+import { NgoSignUpComponent } from './ngo-sign-up/ngo-sign-up.component';
+import { OrganisationOnboardingComponent } from './organisation-onboarding/organisation-onboarding.component';
 
 const routes: Routes = [
   { path: 'borrowersignup', component: BorrowersignupComponent },
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path :'lendersignup', component:LendersignupComponent},
   {path : 'signin', component : SigninComponent},
   {path : 'lenderonboarding', component : LenderonboardingComponent}
+  { path: 'organisationOnboarding', component: OrganisationOnboardingComponent },
+  { path: 'ngoSignUp', component: NgoSignUpComponent },
 ];
 
 @NgModule({
