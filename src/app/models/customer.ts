@@ -77,5 +77,36 @@ export interface DBBorrower {
     
 }
 
+export interface DBLender {
+    customerId: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth?: string;
+    gender?: string;
+    title?: string;
+    countryOfResidency: 'IN';
+    address?: Address[];
+    phoneNumber: PhoneNumber[];
+    emailAddress: EmailAddress[];
+    identification: Identification;
+    fatcaDetails: fatcaDetails;
+    kycCheckRequired: 'CORE-DEFINED';
+    accountno: string;
+    ifsccode: string;
+    bank: string;
+    branch: string;
+    bankaddress: string;
+    monthlysalary: number;
+    companyname: string;
+    referralname: string;
+    referralphone: string;
+    guarantorname: string;
+    guarantorphone: string;
+    guarantoremail: string;
+    guarantoraddress: string;
+    experience: number;
+    
+}
+
 
 
