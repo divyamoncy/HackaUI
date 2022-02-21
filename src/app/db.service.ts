@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DBBorrower } from './models/customer';
+import { DBBorrower, DBLender, OrganisationCustomerDB } from './models/customer';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,17 @@ export class DBService {
             })
             .pipe(map((response) => response));
       }
+    insertOrganisation(
+      dbOrganisation : OrganisationCustomerDB
+        ): Observable<any> {
+          console.log(dbOrganisation);
+          return this.httpClient.post(
+            `/insertOrganisation`, dbOrganisation, {
+              headers: { 
+                'Content-Type': 'application/json' }
+            })
+            .pipe(map((response) => response));
+      }
 
     getBorrowerDetailsByCustomerId(customerId): Observable<any> {
       customerId='029417';
@@ -50,4 +61,15 @@ export class DBService {
       return this.httpClient.get<any>(`/`+customerId+`/loans`)
       .pipe(map((response) => response));
     }
+      insertLender(
+        dbLender : DBLender
+          ): Observable<any> {
+            console.log(dbLender);
+            return this.httpClient.post<any>(
+              `/insertLender`, dbLender, {
+                headers: { 
+                  'Content-Type': 'application/json' }
+              })
+              .pipe(map((response) => response));
+        }
 }

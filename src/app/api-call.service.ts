@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Customer } from './models/customer';
+import { Customer, OrganisationCustomer } from './models/customer';
 import { ROOT_API } from './config';
 import { Account } from './models/account';
 
@@ -117,10 +117,25 @@ postAccount(
     .pipe(map((response) => response));
 }
 
+postOrganisation(
+  customer:OrganisationCustomer,
+  access_token
+): Observable<any> {
+  console.log(`Bearer ${access_token}`);
+  console.log("AFter token");
+  return this.httpClient.post<any>(
+      `${ROOT_API}/customers/v1/enterprise-customers`, customer, {
+	        headers: { 
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json' }
+    })
+    .pipe(map((response) => response));
+}
+
   getToken(
     url = '/tokenproxy',
-    client_id = '800068d5-032c-4941-bfa7-de60a33ee29e',
-    client_secret = 'cda0ffc7-a629-48bb-acc5-97924feb4b77'
+    client_id = 'eab4cc5b-75a3-4805-be73-f1eb94ff7456',
+    client_secret = '3c463f2b-6a84-47d9-9bb9-2e76974e4863'
   ): Observable<any> {
     const data =
       'grant_type=client_credentials&client_id=' +

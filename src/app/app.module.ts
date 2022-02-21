@@ -11,6 +11,8 @@ import { BorroweronboardingComponent } from './borroweronboarding/borroweronboar
 import { BorrowerdashboardComponent } from './borrowerdashboard/borrowerdashboard.component';
 import { LoanRequestComponent } from './loan-request/loan-request.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrganisationOnboardingComponent } from './organisation-onboarding/organisation-onboarding.component';
+import { LenderOnboardingComponent } from './lender-onboarding/lender-onboarding.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     BorroweronboardingComponent,
     BorrowerdashboardComponent,
-    LoanRequestComponent
+    LoanRequestComponent,
+    OrganisationOnboardingComponent,
+    LenderOnboardingComponent
   ],
   imports: [
     ReactiveFormsModule,
