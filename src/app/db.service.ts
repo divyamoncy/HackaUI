@@ -23,6 +23,18 @@ export class DBService {
           .pipe(map((response) => response));
     }
 
+    insertLender(
+      dbLender : DBLender
+        ): Observable<any> {
+          console.log(dbLender);
+          return this.httpClient.post<any>(
+            `/insertLender`, dbLender, {
+               headers: { 
+                  'Content-Type': 'application/json' }
+              })
+              .pipe(map((response) => response));
+        }
+
     insertLoan(
       loan
         ): Observable<any> {
@@ -61,15 +73,8 @@ export class DBService {
       return this.httpClient.get<any>(`/`+customerId+`/loans`)
       .pipe(map((response) => response));
     }
-      insertLender(
-        dbLender : DBLender
-          ): Observable<any> {
-            console.log(dbLender);
-            return this.httpClient.post<any>(
-              `/insertLender`, dbLender, {
-                headers: { 
-                  'Content-Type': 'application/json' }
-              })
-              .pipe(map((response) => response));
-        }
 }
+function dbLender(dbLender: any) {
+  throw new Error('Function not implemented.');
+}
+

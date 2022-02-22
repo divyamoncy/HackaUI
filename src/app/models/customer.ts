@@ -104,6 +104,7 @@ export interface DBLender {
     guarantorphone: string;
     guarantoremail: string;
     guarantoraddress: string;
+    experience: number;
     
 }
 
@@ -138,7 +139,6 @@ export interface OrganisationCustomerDB {
     branch: string;
     bankaddress: string;
 }
-
 
 
 

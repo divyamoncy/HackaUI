@@ -12,6 +12,11 @@ export class UserService {
     this.customerID = customerId;
     this.userType = userType;
   }
+  
+  setLenderDetails(customerId: string, userType: string) {
+    this.customerID = customerId;
+    this.userType = userType;
+  }
   setAccountId(accountId: string) {
     this.accountId = accountId;
   }

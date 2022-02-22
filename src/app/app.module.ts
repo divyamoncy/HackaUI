@@ -10,6 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { BorroweronboardingComponent } from './borroweronboarding/borroweronboarding.component';
 import { BorrowerdashboardComponent } from './borrowerdashboard/borrowerdashboard.component';
 import { LoanRequestComponent } from './loan-request/loan-request.component';
+import { LendersignupComponent } from './lendersignup/lendersignup.component';
+import { SigninComponent } from './signin/signin.component';
+import { LenderonboardingComponent } from './lenderonboarding/lenderonboarding.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrganisationOnboardingComponent } from './organisation-onboarding/organisation-onboarding.component';
 
@@ -21,6 +24,9 @@ import { OrganisationOnboardingComponent } from './organisation-onboarding/organ
     BorroweronboardingComponent,
     BorrowerdashboardComponent,
     LoanRequestComponent,
+    LendersignupComponent,
+    SigninComponent,
+    LenderonboardingComponent
     OrganisationOnboardingComponent,
   ],
   imports: [

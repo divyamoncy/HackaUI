@@ -187,6 +187,11 @@ app.post('/insertBorrower', (req, res) => {
   res.send({ "success": "done" });
 })
 
+app.post('/insertLender', (req, res) => {
+  console.log('POST request to insert customer');
+  LenderCollection.insertOne(req.body);
+  res.send({ "success": "done" });
+})
 app.post('/insertLoan', (req, res) => {
   console.log('POST request to insert loan');
   LoanCollection.insertOne(req.body);
@@ -195,12 +200,6 @@ app.post('/insertLoan', (req, res) => {
 app.post('/insertOrganisation', (req, res) => {
   console.log('POST request to insert organisation');
   OrganisationCollection.insertOne(req.body);
-  res.send({"success":"done"});
-})
-
-app.post('/insertLender', (req, res) => {
-  console.log('POST request to insert Lender');
-  LenderCollection.insertOne(req.body);
   res.send({"success":"done"});
 })
 

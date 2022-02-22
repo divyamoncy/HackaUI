@@ -5,6 +5,9 @@ import { BorroweronboardingComponent } from './borroweronboarding/borroweronboar
 import { BorrowersignupComponent } from './borrowersignup/borrowersignup.component';
 import { HomeComponent } from './home/home.component';
 import { LoanRequestComponent } from './loan-request/loan-request.component';
+import { LendersignupComponent } from './lendersignup/lendersignup.component';
+import { SigninComponent } from './signin/signin.component';
+import { LenderonboardingComponent } from './lenderonboarding/lenderonboarding.component';
 import { NgoSignUpComponent } from './ngo-sign-up/ngo-sign-up.component';
 import { OrganisationOnboardingComponent } from './organisation-onboarding/organisation-onboarding.component';
 
@@ -13,9 +16,12 @@ const routes: Routes = [
   {path: 'borroweronboarding', component: BorroweronboardingComponent},
   {path: 'borrowerdashboard', component: BorrowerdashboardComponent},
   {path: 'loanrequest', component: LoanRequestComponent},
+  { path: '', component: HomeComponent },
+  { path :'lendersignup', component:LendersignupComponent},
+  {path : 'signin', component : SigninComponent},
+  {path : 'lenderonboarding', component : LenderonboardingComponent}
   { path: 'organisationOnboarding', component: OrganisationOnboardingComponent },
   { path: 'ngoSignUp', component: NgoSignUpComponent },
-  { path: '', component: HomeComponent }
 ];
 
 @NgModule({
