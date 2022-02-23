@@ -73,7 +73,7 @@ function generateUUID() { // Public Domain/MIT
 }
 
 proxy.on('proxyReq', (proxyReq: ClientRequest, req: Request, res: Response, options: any) => {
-  if (req.body.firstName || req.body.enterpriseName || req.body.customerId) {
+  if (req.body.firstName || req.body.enterpriseName || req.body.customerId || req.body.relatedIdentifier) {
     console.log("I'm inside");
     proxyReq.setHeader('X-Request-ID', generateUUID());
     proxyReq.setHeader('Idempotency-Key', 'honeypunch');

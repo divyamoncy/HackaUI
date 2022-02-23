@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Customer, OrganisationCustomer } from './models/customer';
 import { ROOT_API } from './config';
-import { Account } from './models/account';
+import { Account, PaymentMandate } from './models/account';
 
 @Injectable({
   providedIn: 'root'
@@ -132,10 +132,28 @@ postOrganisation(
     .pipe(map((response) => response));
 }
 
+postMandate(
+  mandate:PaymentMandate,
+  access_token
+): Observable<any> {
+  
+  console.log(`Bearer ${access_token}`);
+  console.log("AFter token");
+  // var x = JSON.stringify(customer);
+  console.log("Mandate");
+  return this.httpClient.post<any>(
+    `${ROOT_API}/payment-mandates/v1/payments/mandates`, mandate, {
+      headers: { 
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json' }
+    })
+    .pipe(map((response) => response));
+}
+
   getToken(
     url = '/tokenproxy',
-    client_id = 'eab4cc5b-75a3-4805-be73-f1eb94ff7456',
-    client_secret = '3c463f2b-6a84-47d9-9bb9-2e76974e4863'
+    client_id = '211a0506-cd95-460a-a653-ae8b4e4035ff',
+    client_secret = 'a5786a63-4032-4449-9813-5d7d01212354'
   ): Observable<any> {
     const data =
       'grant_type=client_credentials&client_id=' +

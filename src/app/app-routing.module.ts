@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path :'lendersignup', component:LendersignupComponent},
   {path : 'signin', component : SigninComponent},
-  {path : 'lenderonboarding', component : LenderonboardingComponent}
+  {path : 'lenderonboarding', component : LenderonboardingComponent},
   { path: 'organisationOnboarding', component: OrganisationOnboardingComponent },
   { path: 'ngoSignUp', component: NgoSignUpComponent },
 ];

@@ -26,8 +26,8 @@ import { OrganisationOnboardingComponent } from './organisation-onboarding/organ
     LoanRequestComponent,
     LendersignupComponent,
     SigninComponent,
-    LenderonboardingComponent
-    OrganisationOnboardingComponent,
+    LenderonboardingComponent,
+    OrganisationOnboardingComponent
   ],
   imports: [
     ReactiveFormsModule,

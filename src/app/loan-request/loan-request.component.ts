@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiCallService } from '../api-call.service';
 import { DBService } from '../db.service';
+import { PaymentMandate } from '../models/account';
 import { UserService } from '../user.service';
 
 @Component({
@@ -16,7 +18,8 @@ export class LoanRequestComponent implements OnInit {
   public categoryMapping;
   public companyName:string;
   public focus:number;
-  constructor(private dbService: DBService, private userService: UserService, public formBuilder: FormBuilder) {
+  public mandate: PaymentMandate;
+  constructor(private dbService: DBService, private userService: UserService, public formBuilder: FormBuilder, private apiCallService: ApiCallService) {
     this.loanRequest = formBuilder.group({
       loanamount: ['', Validators.required],
       loanpurpose: ['', Validators.required]
@@ -76,8 +79,29 @@ export class LoanRequestComponent implements OnInit {
     this.dbService.insertLoan(data).subscribe((response) => {
       console.log(response);
     });
-
-
+    this.mandate = {} as PaymentMandate;
+    this.mandate.relatedIdentifier = this.customerId;
+    this.mandate.paymentScheme = "BACS";
+    this.mandate.mandateDescription = "Interest Payment";
+    this.mandate.validFromDate = new Date().toISOString().split("T")[0];
+    this.mandate.validToDate = new Date( Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    this.mandate.amountType = "VARIABLE";
+    this.mandate.mandateCurrency = "USD";
+    this.mandate.collectionFrequency = "ADHOC";
+    this.mandate.creditAccountId = "010100294280000";
+    this.mandate.creditBankIdentifier = "089999";
+    this.mandate.debitBankIdentifier = "090013";
+    this.mandate.debitAccountType ="BBAN";
+    this.mandate.debitCustomerCountry ="US";
+    let debitAccount = this.userService.getAccountId();
+    this.mandate.debitAccountId = debitAccount.substring(debitAccount.length - 8);
+    this.apiCallService.getToken().subscribe((tok)=>{
+      this.apiCallService.postMandate(this.mandate, tok).subscribe((response)=>{
+        console.log(response.mandateReference);
+       
+        
+      });
+    });
   }
 
   formatLabel(value: number) {
