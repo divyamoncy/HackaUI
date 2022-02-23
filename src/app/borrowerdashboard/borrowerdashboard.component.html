@@ -16,21 +16,37 @@
                 <img class="h-24 mx-6 my-auto" src="/assets/loan.png" alt="Loan" />
                 <div class="ml-2 my-auto">
                     <h3 class="mb-1 text-base text-gray-700 dark:text-gray-700">Total Loan Amount</h3>
-                    <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">75000 INR</h3>
+                    <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">₹75000</h3>
                     <h3 class="mb-1 text-base text-gray-700 dark:text-gray-700">Loan Outstanding Amount</h3>
-                    <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">50000 INR</h3>
+                    <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">₹50000</h3>
                     <h3 class="mb-1 text-base text-gray-700 dark:text-gray-700">Maturity Date</h3>
                     <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">15th Feb 2022</h3>
                 </div>
             </div>
             <div
                 class="m-2 ml-4 mt-4 p-5 w-[28vw] bg-gradient-to-r from-blue-500 to-indigo-500 rounded shadow-lg shadow-blue-500/50 flex flex-row">
-                <img class="h-24 mx-6 my-auto" src="/assets/payment.png" alt="Loan" />
+                <img class="h-20 mx-4 my-auto" src="/assets/payment.png" alt="Loan" />
                 <div class="ml-2 my-auto">
                     <h3 class="mb-1 text-base text-white dark:text-white">Next Interest due on</h3>
                     <h3 class="mb-1 text-lg font-bold text-white dark:text-white">15th Feb 2022</h3>
                     <h3 class="mb-1 text-base text-white dark:text-white">Interest Outstanding Amount</h3>
-                    <h3 class="mb-1 text-lg font-bold text-white dark:text-white">800 INR</h3>
+                    <div class="flex flex-row">
+                    <h3 class="mb-1 text-lg font-bold text-white dark:text-white">₹800</h3>
+                    
+                    <svg *ngIf="show == 1" (click)="changeShowToTwo()" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    
+                      <svg *ngIf="show == 2" (click)="changeShowToOne()" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 15l7-7 7 7" />
+                      </svg>
+                          <div *ngIf="show==2" class = "text-white dark:text-white">
+                          current Month due xxx <br>
+                          Past due interest xxx<br>
+                          Late payment penalty xxx <br>
+                          Other charges xxx
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="m-2 ml-4 mt-4 p-5 w-[23vw] rounded shadow-lg shadow-gray-300/50 flex flex-row">
