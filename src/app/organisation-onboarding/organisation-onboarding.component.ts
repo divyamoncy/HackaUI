@@ -129,10 +129,10 @@ export class OrganisationOnboardingComponent implements OnInit {
             this.router.navigate(['/borrowerdashboard']);
           });
         });
-        // this.dbService.insertOrganisation(this.customerDB).subscribe((resp)=>{
-        //   console.log("Inside DB");
-        //   console.log(resp);
-        //   });
+        this.dbService.insertOrganisation(this.customerDB).subscribe((resp)=>{
+          console.log("Inside DB");
+          console.log(resp);
+          });
         });
     });
 
