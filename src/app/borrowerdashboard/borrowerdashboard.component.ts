@@ -9,8 +9,10 @@ import { UserService } from '../user.service';
   styleUrls: ['./borrowerdashboard.component.css']
 })
 export class BorrowerdashboardComponent implements OnInit {
-
-  constructor(private router: Router, private dbService: DBService, private userService: UserService) { }
+  public show:number;
+  constructor(private router: Router, private dbService: DBService, private userService: UserService) {
+    this.show = 1;
+   }
 
   ngOnInit(): void {
     this.dbService.getCustomerLoans(this.userService.getCustomerId()).subscribe((response)=>{
@@ -19,6 +21,13 @@ export class BorrowerdashboardComponent implements OnInit {
     });
   }
 
+  changeShowToOne(){
+    this.show = 1;
+  }
+
+  changeShowToTwo(){
+    this.show = 2;
+  }
   loanScreen(){
     this.router.navigate(['/loanrequest']);
   }
