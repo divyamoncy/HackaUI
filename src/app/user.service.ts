@@ -20,6 +20,10 @@ export class UserService {
   setAccountId(accountId: string) {
     this.accountId = accountId;
   }
+  getAccountId() {
+    return "010100294300000";
+    //return this.accountId;
+  }
   getCustomerId() {
     return this.customerID;
   }
