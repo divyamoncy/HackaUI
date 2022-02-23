@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiCallService } from '../api-call.service';
 import { DBService } from '../db.service';
+import { Account, AccountAdditionalDetails } from '../models/account';
 import { Customer, Address, PhoneNumber, EmailAddress, Identification, fatcaDetails, OrganisationCustomer, OrganisationCustomerDB } from '../models/customer';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-organisation-onboarding',
@@ -19,8 +22,10 @@ export class OrganisationOnboardingComponent implements OnInit {
   public address: Address[];
   public phoneNumber: PhoneNumber[];
   public emailAddress: EmailAddress[];
+  public account: Account;
+  public accountDetails: AccountAdditionalDetails;
   
-  constructor(public formBuilder: FormBuilder, private apiCallService: ApiCallService, public httpClient: HttpClient, private dbService: DBService) {
+  constructor(public formBuilder: FormBuilder, private apiCallService: ApiCallService, public httpClient: HttpClient, private dbService: DBService, private userService: UserService, private router: Router ) {
     this.focus = 1;
     this.organisationOnboardingForm = formBuilder.group({
       firmName: ['',Validators.required],
@@ -104,16 +109,30 @@ export class OrganisationOnboardingComponent implements OnInit {
     this.customerDB.bank = this.organisationOnboardingForm.value.bank;
     console.log(JSON.stringify(this.customer));
     this.apiCallService.getToken().subscribe((res)=>{
-      console.log("Token");
-      console.log(res);
+      // console.log("Token");
+      // console.log(res);
       this.apiCallService.postOrganisation(this.customer, res).subscribe((resp)=>{
+        this.userService.setBorrowerDetails(resp.customerId, "Organisation");
         console.log("Inside API call");
         console.log(resp.customerId);
         this.customerDB.customerId = resp.customerId;
-        this.dbService.insertOrganisation(this.customerDB).subscribe((resp)=>{
-          console.log("Inside DB");
-          console.log(resp);
+        this.account.customerId = resp.customerId;
+        this.account.productId = "01010DEFAULTUSD";
+        this.account.accountOwnership = "SOLE";
+        this.accountDetails.modeOfOperation = "SOLE";
+        this.accountDetails.postingRestriction = "NONE";
+        this.account.accountAdditionalDetails = this.accountDetails;
+        this.apiCallService.getToken().subscribe((tok)=>{
+          this.apiCallService.postAccount(this.account, tok).subscribe((response)=>{
+            console.log(response.accountId);
+            this.userService.setAccountId(response.accountId);
+            this.router.navigate(['/borrowerdashboard']);
           });
+        });
+        // this.dbService.insertOrganisation(this.customerDB).subscribe((resp)=>{
+        //   console.log("Inside DB");
+        //   console.log(resp);
+        //   });
         });
     });
 
