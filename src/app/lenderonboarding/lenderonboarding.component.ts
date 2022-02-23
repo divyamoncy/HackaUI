@@ -3,8 +3,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiCallService } from '../api-call.service';
 import { DBService } from '../db.service';
+import { Account, AccountAdditionalDetails } from '../models/account';
 import { Address, Customer, DBLender, EmailAddress, fatcaDetails, Identification, PhoneNumber } from '../models/customer';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lenderonboarding',
@@ -22,9 +24,11 @@ export class LenderonboardingComponent implements OnInit {
   public identification: Identification;
   public fatcaDetails: fatcaDetails;
   public dbLender: DBLender;
+  public account: Account;
+  public accountDetails: AccountAdditionalDetails;
   
   constructor(public formBuilder: FormBuilder, private apiCallService: ApiCallService, public httpClient: HttpClient, 
-    private dbService: DBService, private userService: UserService) { 
+    private dbService: DBService, private userService: UserService, private router: Router) { 
     this.focus = 1;
     this.lenderOnboardingForm = formBuilder.group({
       firstname: ['',Validators.required],
@@ -74,6 +78,8 @@ export class LenderonboardingComponent implements OnInit {
     this.dbLender = {} as DBLender;
     this.identification = {} as Identification;
     this.fatcaDetails = {} as fatcaDetails;
+    this.account = {} as Account;
+    this.accountDetails = {} as AccountAdditionalDetails;
     this.phoneNumber = [];
     this.address = [];
     this.emailAddress = [];
@@ -136,6 +142,19 @@ export class LenderonboardingComponent implements OnInit {
         console.log(resp.customerId);
         this.userService.setLenderDetails(resp.customerId, "Lender");
         this.dbLender.customerId = resp.customerId;
+        this.account.customerId = resp.customerId;
+        this.account.productId = "01010DEFAULTUSD";
+        this.account.accountOwnership = "SOLE";
+        this.accountDetails.modeOfOperation = "SOLE";
+        this.accountDetails.postingRestriction = "NONE";
+        this.account.accountAdditionalDetails = this.accountDetails;
+        this.apiCallService.getToken().subscribe((tok)=>{
+          this.apiCallService.postAccount(this.account, tok).subscribe((response)=>{
+            console.log(response.accountId);
+            this.userService.setAccountId(response.accountId);
+//            this.router.navigate(['/lenderdashboard']);
+          });
+        });
         this.dbService.insertLender(this.dbLender).subscribe((resp)=>{
           console.log("Inside DB");
           console.log(resp);
