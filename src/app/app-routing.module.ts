@@ -10,6 +10,7 @@ import { SigninComponent } from './signin/signin.component';
 import { LenderonboardingComponent } from './lenderonboarding/lenderonboarding.component';
 import { NgoSignUpComponent } from './ngo-sign-up/ngo-sign-up.component';
 import { OrganisationOnboardingComponent } from './organisation-onboarding/organisation-onboarding.component';
+import { GetStartedComponent } from './get-started/get-started.component';
 
 const routes: Routes = [
   { path: 'borrowersignup', component: BorrowersignupComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path : 'lenderonboarding', component : LenderonboardingComponent},
   { path: 'organisationOnboarding', component: OrganisationOnboardingComponent },
   { path: 'ngoSignUp', component: NgoSignUpComponent },
+  { path: 'getStarted', component: GetStartedComponent },
 ];
 
 @NgModule({

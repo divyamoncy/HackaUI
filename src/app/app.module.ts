@@ -15,6 +15,7 @@ import { SigninComponent } from './signin/signin.component';
 import { LenderonboardingComponent } from './lenderonboarding/lenderonboarding.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrganisationOnboardingComponent } from './organisation-onboarding/organisation-onboarding.component';
+import { GetStartedComponent } from './get-started/get-started.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { OrganisationOnboardingComponent } from './organisation-onboarding/organ
     LendersignupComponent,
     SigninComponent,
     LenderonboardingComponent,
-    OrganisationOnboardingComponent
+    OrganisationOnboardingComponent,
+    GetStartedComponent
   ],
   imports: [
     ReactiveFormsModule,

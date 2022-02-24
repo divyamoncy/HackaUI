@@ -1,0 +1,39 @@
+<div class="flex flex-row h-screen mx-[20vw]">
+
+
+
+    <div *ngIf="focus == 1" class="my-auto mx-2 p-10 w-[30vw] bg-white-500 rounded shadow-lg shadow-blue-500/50 flex flex-col">
+        <img class="h-[120px] m-auto mt-4" src="/assets/borrower.png" alt="Loan" />
+        <button class="mt-10 px-6 py-4 text-xs md:text-base font-bold rounded-md bg-blue-500 text-white"
+            type="submit" (click)="borrowerSignUp()">
+            Borrow
+        </button>
+
+    </div>
+    <div *ngIf="focus == 1" class="my-auto mx-2 p-10 w-[30vw] bg-white-500 rounded shadow-lg shadow-blue-500/50 flex flex-col">
+        <img class="h-[120px] m-auto mt-4" src="/assets/lenderInvest.png" alt="Loan" />
+        <button class="mt-10 px-6 py-4 text-xs md:text-base font-bold rounded-md bg-blue-500 text-white"
+            type="submit" (click)="changeFocusToTwo()">
+            Invest
+        </button>
+
+    </div>
+
+    <div *ngIf="focus == 2" class="my-auto mx-2 p-10 w-[30vw] bg-white-500 rounded shadow-lg shadow-blue-500/50 flex flex-col">
+        <img class="h-[120px] m-auto mt-4" src="/assets/individual.png" alt="Loan" />
+        <button class="mt-10 px-6 py-4 text-xs md:text-base font-bold rounded-md bg-blue-500 text-white"
+            type="submit" (click)="lenderSignUp()">
+            Individual
+        </button>
+
+    </div>
+    <div *ngIf="focus == 2" class="my-auto mx-2 p-10 w-[30vw] bg-white-500 rounded shadow-lg shadow-blue-500/50 flex flex-col">
+        <img class="h-[120px] m-auto mt-4" src="/assets/organisation.png" alt="Loan" />
+        <button class="mt-10 px-6 py-4 text-xs md:text-base font-bold rounded-md bg-blue-500  text-white"
+            type="submit" (click)="organisationSignUp()">
+            Organisation
+        </button>
+
+    </div>
+
+</div>
