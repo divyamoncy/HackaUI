@@ -22,12 +22,12 @@ var db;
 var CustomerCollection;
 var LoanCollection;
 var LenderCollection;
-var BidCollection;
 var BorrowerCollection;
 var RatesPersonalCollection;
 var CategoryCollection;
 var OrganisationCollection;
 var LenderCollection;
+var InterestDetailsCollection;
 
 MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongodb.net/Communiti?retryWrites=true&w=majority", function (err, database) {
   if (err) throw err;
@@ -36,9 +36,8 @@ MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongod
   CustomerCollection = db.db("Communiti").collection("customers");
   //LoanCollection = db.db("Communiti").collection("loans");
   LenderCollection = db.db("Communiti").collection("lenders");
-  BidCollection = db.db("Communiti").collection("bids");
   OrganisationCollection = db.db("Communiti").collection("Organisation");
-
+  InterestDetailsCollection = db.db("Communiti").collection("InterestDetails");
   BorrowerCollection = db.db("Communiti").collection("borrowers");
   LoanCollection = db.db("Communiti").collection("loans");
   RatesPersonalCollection = db.db("Communiti").collection("ratespersonal");
@@ -200,6 +199,12 @@ app.post('/insertLoan', (req, res) => {
 app.post('/insertOrganisation', (req, res) => {
   console.log('POST request to insert organisation');
   OrganisationCollection.insertOne(req.body);
+  res.send({"success":"done"});
+})
+
+app.post('/insertInterestDetails', (req, res) => {
+  console.log('POST request to insert Interest Details');
+  InterestDetailsCollection.insertOne(req.body);
   res.send({"success":"done"});
 })
 

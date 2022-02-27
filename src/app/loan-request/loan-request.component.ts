@@ -19,6 +19,8 @@ export class LoanRequestComponent implements OnInit {
   public companyName:string;
   public focus:number;
   public mandate: PaymentMandate;
+  public interest: any;
+  public nextInterestDueDate: any;
   constructor(private dbService: DBService, private userService: UserService, public formBuilder: FormBuilder, private apiCallService: ApiCallService) {
     this.loanRequest = formBuilder.group({
       loanamount: ['', Validators.required],
@@ -62,10 +64,12 @@ export class LoanRequestComponent implements OnInit {
     data["purpose"] = this.loanRequest.value.loanpurpose;
     data["loanType"] = "Personal";
     data["requestDate"] = new Date().toISOString().split("T")[0];
+    this.interest = (data["amount"]) / 100.0;
+    this.nextInterestDueDate = new Date( Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     this.dbService.insertLoan(data).subscribe((response) => {
       console.log(response);
     });
-
+    this.insertMandate();
 
   }
 
@@ -76,9 +80,14 @@ export class LoanRequestComponent implements OnInit {
     data["purpose"] = this.loanRequest.value.loanpurpose;
     data["loanType"] = "Instant";
     data["requestDate"] = new Date().toISOString().split("T")[0];
+    this.interest = (data["amount"]) / 100.0;
+    this.nextInterestDueDate = new Date( Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     this.dbService.insertLoan(data).subscribe((response) => {
-      console.log(response);
     });
+    this.insertMandate();
+  }
+
+  insertMandate() {
     this.mandate = {} as PaymentMandate;
     this.mandate.relatedIdentifier = this.customerId;
     this.mandate.paymentScheme = "BACS";
@@ -98,6 +107,14 @@ export class LoanRequestComponent implements OnInit {
     this.apiCallService.getToken().subscribe((tok)=>{
       this.apiCallService.postMandate(this.mandate, tok).subscribe((response)=>{
         console.log(response.mandateReference);
+        let interestDetails = {};
+        interestDetails["amount"] = this.interest;
+        interestDetails["nextDueDate"] = this.nextInterestDueDate;
+        interestDetails["customerId"] = this.customerId;
+        interestDetails["mandateReference"] = response.mandateReference;
+        this.dbService.insertInterestDetails(interestDetails).subscribe((resp) => {
+          console.log(resp);
+        });
        
         
       });

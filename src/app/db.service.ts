@@ -57,6 +57,17 @@ export class DBService {
             })
             .pipe(map((response) => response));
       }
+    insertInterestDetails(
+      interestDetails: any
+    ): Observable<any> {
+        console.log(interestDetails);
+          return this.httpClient.post(
+            `/insertInterestDetails`, interestDetails, {
+              headers: { 
+                'Content-Type': 'application/json' }
+            })
+            .pipe(map((response) => response));
+    }
 
     getBorrowerDetailsByCustomerId(customerId): Observable<any> {
       customerId='029417';
