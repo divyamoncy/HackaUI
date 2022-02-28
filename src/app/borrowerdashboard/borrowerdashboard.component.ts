@@ -13,14 +13,20 @@ export class BorrowerdashboardComponent implements OnInit {
   public accountnumber: string;
   public ifsccode: string;
   public outstanding: number;
+  public maturityDate: string;
   constructor(private router: Router, private dbService: DBService, private userService: UserService) {
     this.show = 1;
-    this.accountnumber="";
+    this.accountnumber = "";
+    this.maturityDate = "";
    }
 
   ngOnInit(): void {
     this.dbService.getCustomerLoans(this.userService.getCustomerId()).subscribe((response)=>{
-      this.outstanding = response[0].amount;
+      if(response.length != 0) {
+        this.outstanding = response[0].amount;
+        let matDate = response[0].requestDate;
+        this.maturityDate = matDate.substring(8,10)+"-"+matDate.substring(5,7)+"-"+(parseInt(matDate.substring(0,4)) + 1).toString();
+      }
       console.log("inside dashboard");
       console.log(response);
     });
