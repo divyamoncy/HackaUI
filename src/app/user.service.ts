@@ -25,6 +25,7 @@ export class UserService {
     //return this.accountId;
   }
   getCustomerId() {
-    return this.customerID;
+    return "029417";
+    //return this.customerID;
   }
 }

@@ -16,7 +16,7 @@
                 <img class="h-24 mx-6 my-auto" src="/assets/loan.png" alt="Loan" />
                 <div class="ml-2 my-auto">
                     <h3 class="mb-1 text-base text-gray-700 dark:text-gray-700">Total Loan Amount</h3>
-                    <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">₹75000</h3>
+                    <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">₹{{outstanding}}</h3>
                     <h3 class="mb-1 text-base text-gray-700 dark:text-gray-700">Loan Outstanding Amount</h3>
                     <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">₹50000</h3>
                     <h3 class="mb-1 text-base text-gray-700 dark:text-gray-700">Maturity Date</h3>
@@ -41,9 +41,9 @@
                         <path fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 15l7-7 7 7" />
                       </svg>
                           <div *ngIf="show==2" class = "text-white dark:text-white">
-                          current Month due xxx <br>
-                          Past due interest xxx<br>
-                          Late payment penalty xxx <br>
+                          Current Month due xxx <br>
+                          Past due Interest xxx<br>
+                          Late Payment Penalty xxx <br>
                           Other charges xxx
                         </div>
                     </div>
@@ -52,9 +52,9 @@
             <div class="m-2 ml-4 mt-4 p-5 w-[23vw] rounded shadow-lg shadow-gray-300/50 flex flex-row">
                 <div class="ml-2 my-auto">
                     <h3 class="mb-1 text-base text-gray-700 dark:text-gray-700">Account No</h3>
-                    <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">XXXXXXXXXX7889</h3>
+                    <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">XXXXXXXX{{accountnumber}}</h3>
                     <h3 class="mb-1 text-base text-gray-700 dark:text-gray-700">IFSC Code</h3>
-                    <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">HDFC00009880</h3>
+                    <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">{{ifsccode}}</h3>
                 </div>
             </div>
         </div>
