@@ -14,6 +14,7 @@ export class BorrowerdashboardComponent implements OnInit {
   public ifsccode: string;
   public outstanding: number;
   public maturityDate: string;
+  public fullName: string;
   constructor(private router: Router, private dbService: DBService, private userService: UserService) {
     this.show = 1;
     this.accountnumber = "";
@@ -21,17 +22,19 @@ export class BorrowerdashboardComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    let month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
     this.dbService.getCustomerLoans(this.userService.getCustomerId()).subscribe((response)=>{
       if(response.length != 0) {
         this.outstanding = response[0].amount;
         let matDate = response[0].requestDate;
-        this.maturityDate = matDate.substring(8,10)+"-"+matDate.substring(5,7)+"-"+(parseInt(matDate.substring(0,4)) + 1).toString();
+        this.maturityDate = matDate.substring(8,10)+" "+month[parseInt(matDate.substring(5,7))-1]+" "+(parseInt(matDate.substring(0,4)) + 1).toString();
       }
       console.log("inside dashboard");
       console.log(response);
     });
     this.dbService.getBorrowerDetailsByCustomerId(this.userService.getCustomerId()).subscribe((response) => {
       //console.log(response);
+      this.fullName = response[0].firstName + " " + response[0].lastName;
       let fullAccount = response[0].accountno;
       this.accountnumber = fullAccount.substring(fullAccount.length - 4);
       this.ifsccode = response[0].ifsccode.toUpperCase();

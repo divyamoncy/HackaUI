@@ -225,6 +225,15 @@ app.post('/insertInterestDetails', (req, res) => {
 //   BidCollection.insertOne(req.body);
 //   res.send({"success":"done"});
 // })
+app.get('/interestDetails/:id', function(req , res){
+  console.log('GET request to get interest details by customer ID');
+  InterestDetailsCollection.find({"customerId" : req.params.id}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log("found loan details");
+    console.log(result);
+    res.send(result);
+  }); 
+});
 
 app.get('/:id/loans', function(req , res){
   console.log('GET request to get loans by customer ID');
