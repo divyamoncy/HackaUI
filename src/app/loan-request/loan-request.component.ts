@@ -115,7 +115,15 @@ export class LoanRequestComponent implements OnInit {
         this.dbService.insertInterestDetails(interestDetails).subscribe((resp) => {
           console.log(resp);
         });
-       
+        let transaction = {};
+        transaction["customerId"] = this.customerId;
+        transaction["date"] = new Date().toISOString().split("T")[0];
+        transaction["amount"] = this.loanRequest.value.loanamount;
+        transaction["description"] = "Loan Disbursement";
+        transaction["type"] = "credit";
+        this.dbService.insertTransaction(transaction).subscribe((resp) => {
+          console.log(resp);
+        });
         
       });
     });

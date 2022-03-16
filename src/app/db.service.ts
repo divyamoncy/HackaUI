@@ -69,6 +69,18 @@ export class DBService {
             .pipe(map((response) => response));
     }
 
+    insertTransaction(
+      transaction: any
+    ): Observable<any> {
+        console.log(transaction);
+          return this.httpClient.post(
+            `/insertTransaction`, transaction, {
+              headers: { 
+                'Content-Type': 'application/json' }
+            })
+            .pipe(map((response) => response));
+    }
+
     getBorrowerDetailsByCustomerId(customerId): Observable<any> {
       customerId='029417';
       return this.httpClient.get<any>(`/borrower/`+customerId)
@@ -82,6 +94,11 @@ export class DBService {
 
     getCustomerLoans( customerId ): Observable<any> {
       return this.httpClient.get<any>(`/`+customerId+`/loans`)
+      .pipe(map((response) => response));
+    }
+
+    getTransactionsByCustomerId( customerId ): Observable<any> {
+      return this.httpClient.get<any>(`/transaction/`+customerId)
       .pipe(map((response) => response));
     }
 }

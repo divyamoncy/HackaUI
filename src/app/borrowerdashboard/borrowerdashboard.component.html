@@ -62,6 +62,31 @@
             <div class="m-2 ml-4 mt-4 p-8 w-[58vw] rounded text-gray-700 shadow-lg shadow-gray-300/50">
                 <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">Transactions</h3>
                 <hr />
+                <div *ngFor="let item of transactions; ">
+                <div class="flex items-start space-x-6 p-6">
+                    <img src="/assets/{{item.type}}.png" alt="" width="30" class="flex-none rounded-md bg-slate-100" />
+                    <div class="min-w-0 relative flex-auto">
+                      <div class="flex flex-wrap">
+                        <h1 class="flex-auto text-lg font-semibold text-slate-900">
+                          ₹{{item.amount}}
+                        </h1>
+                        <div class="text-lg font-semibold text-slate-500">
+                          {{item.date.substring(8,10)}} {{month[convertString(item.date.substring(5,7))-1]}} {{item.date.substring(0,4)}}
+                        </div>
+                      </div>
+                      
+                      <dl class="mt-2 flex flex-wrap text-sm leading-6 font-medium">
+                        <div>
+                          <dt class="sr-only">{{item.description}}</dt>
+                          <dd class="px-1.5 ring-1 ring-slate-200 rounded">{{item.description}}</dd>
+                        </div>
+                       
+                        
+                      </dl>
+                    </div>
+                </div>
+                <hr/>
+              </div>
             </div>
             <div class="m-2 ml-4 mt-4 p-8 w-[23vw] rounded text-gray-700 shadow-lg shadow-gray-300/50">
                 <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">Transactions</h3>

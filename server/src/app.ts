@@ -28,6 +28,7 @@ var CategoryCollection;
 var OrganisationCollection;
 var LenderCollection;
 var InterestDetailsCollection;
+var TransactionsCollection;
 
 MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongodb.net/Communiti?retryWrites=true&w=majority", function (err, database) {
   if (err) throw err;
@@ -42,6 +43,7 @@ MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongod
   LoanCollection = db.db("Communiti").collection("loans");
   RatesPersonalCollection = db.db("Communiti").collection("ratespersonal");
   CategoryCollection = db.db("Communiti").collection("category");
+  TransactionsCollection = db.db("Communiti").collection("transactions");
   // Start the application after the database connection is ready
   console.log("connected to db");
 });
@@ -208,6 +210,12 @@ app.post('/insertInterestDetails', (req, res) => {
   res.send({"success":"done"});
 })
 
+app.post('/insertTransaction', (req, res) => {
+  console.log('POST request to insert transaction');
+  TransactionsCollection.insertOne(req.body);
+  res.send({"success":"done"});
+})
+
 // app.post('/insertLoan', (req, res) => {
 //   console.log('POST request to insert loan');
 //   LoanCollection.insertOne(req.body);
@@ -250,6 +258,16 @@ app.get('/borrower/:customerId', function (req, res) {
   BorrowerCollection.find({ "customerId": req.params.customerId }).toArray(function (err, result) {
     if (err) throw err;
     console.log("found customer");
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.get('/transaction/:customerId', function (req, res) {
+  console.log('GET request to get transactions by customer id');
+  TransactionsCollection.find({ "customerId": req.params.customerId }).toArray(function (err, result) {
+    if (err) throw err;
+    console.log("found transactions");
     console.log(result);
     res.send(result);
   });
