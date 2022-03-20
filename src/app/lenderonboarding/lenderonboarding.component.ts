@@ -135,7 +135,7 @@ export class LenderonboardingComponent implements OnInit {
     this.dbLender.guarantorphone = this.lenderOnboardingForm.value.guarantorphone;
     this.dbLender.guarantoremail = this.lenderOnboardingForm.value.guarantoremail;
     this.dbLender.guarantoraddress = this.lenderOnboardingForm.value.guarantoraddress;
-    console.log(JSON.stringify(this.customer));
+//    console.log(JSON.stringify(this.customer));
     this.apiCallService.getToken().subscribe((res)=>{
       this.apiCallService.postCustomer(this.customer, res).subscribe((resp)=>{
         console.log("Inside API call");
@@ -152,7 +152,7 @@ export class LenderonboardingComponent implements OnInit {
           this.apiCallService.postAccount(this.account, tok).subscribe((response)=>{
             console.log(response.accountId);
             this.userService.setAccountId(response.accountId);
-//            this.router.navigate(['/lenderdashboard']);
+            this.router.navigate(['/lenderdashboard']);
           });
         });
         this.dbService.insertLender(this.dbLender).subscribe((resp)=>{

@@ -126,7 +126,7 @@ export class OrganisationOnboardingComponent implements OnInit {
           this.apiCallService.postAccount(this.account, tok).subscribe((response)=>{
             console.log(response.accountId);
             this.userService.setAccountId(response.accountId);
-            this.router.navigate(['/borrowerdashboard']);
+            this.router.navigate(['/lenderdashboard']);
           });
         });
         this.dbService.insertOrganisation(this.customerDB).subscribe((resp)=>{

@@ -15,12 +15,14 @@ export class BorrowerdashboardComponent implements OnInit {
   public outstanding: number;
   public maturityDate: string;
   public fullName: string;
+  public interestDueDate: string;
   public transactions: any;
   public month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
   constructor(private router: Router, private dbService: DBService, private userService: UserService) {
     this.show = 1;
     this.accountnumber = "";
     this.maturityDate = "";
+    this.interestDueDate = "";
    }
 
   ngOnInit(): void {
@@ -29,6 +31,8 @@ export class BorrowerdashboardComponent implements OnInit {
       if(response.length != 0) {
         this.outstanding = response[0].amount;
         let matDate = response[0].requestDate;
+        let intDate = response[0].interestDueDate;
+        this.interestDueDate = intDate.substring(8,10)+" "+this.month[parseInt(intDate.substring(5,7))-1]+" "+(parseInt(intDate.substring(0,4))).toString();
         this.maturityDate = matDate.substring(8,10)+" "+this.month[parseInt(matDate.substring(5,7))-1]+" "+(parseInt(matDate.substring(0,4)) + 1).toString();
       }
       console.log("inside dashboard");

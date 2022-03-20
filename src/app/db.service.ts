@@ -81,11 +81,29 @@ export class DBService {
             .pipe(map((response) => response));
     }
 
+    insertInvestment(
+      investment: any
+    ): Observable<any> {
+        console.log(investment);
+          return this.httpClient.post(
+            `/insertInvestment`, investment, {
+              headers: { 
+                'Content-Type': 'application/json' }
+            })
+            .pipe(map((response) => response));
+    }
+
     getBorrowerDetailsByCustomerId(customerId): Observable<any> {
-      customerId='029417';
+    //  customerId='029417';
       return this.httpClient.get<any>(`/borrower/`+customerId)
       .pipe(map((response) => response));
     }
+
+    getLenderDetailsByCustomerId(customerId): Observable<any> {
+      //  customerId='029417';
+        return this.httpClient.get<any>(`/lender/`+customerId)
+        .pipe(map((response) => response));
+      }
 
     getPersonalLoanAmount(category, experience): Observable<any> {
       return this.httpClient.get<any>(`/personalLoan/`+category+`/`+experience)
@@ -99,6 +117,11 @@ export class DBService {
 
     getTransactionsByCustomerId( customerId ): Observable<any> {
       return this.httpClient.get<any>(`/transaction/`+customerId)
+      .pipe(map((response) => response));
+    }
+
+    getInvestmentsByCustomerId( customerId ): Observable<any> {
+      return this.httpClient.get<any>(`/investment/`+customerId)
       .pipe(map((response) => response));
     }
 }
