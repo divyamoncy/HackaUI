@@ -11,6 +11,8 @@ import { LenderonboardingComponent } from './lenderonboarding/lenderonboarding.c
 import { NgoSignUpComponent } from './ngo-sign-up/ngo-sign-up.component';
 import { OrganisationOnboardingComponent } from './organisation-onboarding/organisation-onboarding.component';
 import { GetStartedComponent } from './get-started/get-started.component';
+import { LenderdashboardComponent } from './lenderdashboard/lenderdashboard.component';
+import { InvestmoneyComponent } from './investmoney/investmoney.component';
 
 const routes: Routes = [
   { path: 'borrowersignup', component: BorrowersignupComponent },
@@ -24,6 +26,8 @@ const routes: Routes = [
   { path: 'organisationOnboarding', component: OrganisationOnboardingComponent },
   { path: 'ngoSignUp', component: NgoSignUpComponent },
   { path: 'getStarted', component: GetStartedComponent },
+  {path : 'lenderdashboard', component: LenderdashboardComponent},
+  {path : 'investmoney', component: InvestmoneyComponent}
 ];
 
 @NgModule({

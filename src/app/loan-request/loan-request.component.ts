@@ -82,6 +82,7 @@ export class LoanRequestComponent implements OnInit {
     data["requestDate"] = new Date().toISOString().split("T")[0];
     this.interest = (data["amount"]) / 100.0;
     this.nextInterestDueDate = new Date( Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    data["interestDueDate"] = this.nextInterestDueDate;
     this.dbService.insertLoan(data).subscribe((response) => {
     });
     this.insertMandate();
