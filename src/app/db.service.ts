@@ -93,8 +93,20 @@ export class DBService {
             .pipe(map((response) => response));
     }
 
+    insertPrepayment(
+      id: string, prepayment: any
+    ): Observable<any> {
+        console.log(prepayment);
+          return this.httpClient.post(
+            `/updatePrepayment/`+id, prepayment, {
+              headers: { 
+                'Content-Type': 'application/json' }
+            })
+            .pipe(map((response) => response));
+    }
+
     getBorrowerDetailsByCustomerId(customerId): Observable<any> {
-    //  customerId='029417';
+      customerId='029417';
       return this.httpClient.get<any>(`/borrower/`+customerId)
       .pipe(map((response) => response));
     }

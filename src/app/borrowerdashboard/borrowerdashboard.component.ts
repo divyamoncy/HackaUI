@@ -13,6 +13,7 @@ export class BorrowerdashboardComponent implements OnInit {
   public accountnumber: string;
   public ifsccode: string;
   public outstanding: number;
+  public unpaidPrincipal: number;
   public maturityDate: string;
   public fullName: string;
   public interestDueDate: string;
@@ -30,6 +31,7 @@ export class BorrowerdashboardComponent implements OnInit {
     this.dbService.getCustomerLoans(this.userService.getCustomerId()).subscribe((response)=>{
       if(response.length != 0) {
         this.outstanding = response[0].amount;
+        this.unpaidPrincipal = response[0].unpaidPrincipal;
         let matDate = response[0].requestDate;
         let intDate = response[0].interestDueDate;
         this.interestDueDate = intDate.substring(8,10)+" "+this.month[parseInt(intDate.substring(5,7))-1]+" "+(parseInt(intDate.substring(0,4))).toString();
@@ -60,6 +62,9 @@ export class BorrowerdashboardComponent implements OnInit {
   }
   loanScreen(){
     this.router.navigate(['/loanrequest']);
+  }
+  createPrepayment(){
+    this.router.navigate(['/createPrepayment']);
   }
   convertString(str) {
     return parseInt(str);

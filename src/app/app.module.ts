@@ -18,6 +18,7 @@ import { OrganisationOnboardingComponent } from './organisation-onboarding/organ
 import { GetStartedComponent } from './get-started/get-started.component';
 import { LenderdashboardComponent } from './lenderdashboard/lenderdashboard.component';
 import { InvestmoneyComponent } from './investmoney/investmoney.component';
+import { CreatePrepaymentComponent } from './create-prepayment/create-prepayment.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { InvestmoneyComponent } from './investmoney/investmoney.component';
     OrganisationOnboardingComponent,
     GetStartedComponent,
     LenderdashboardComponent,
-    InvestmoneyComponent
+    InvestmoneyComponent,
+    CreatePrepaymentComponent
   ],
   imports: [
     ReactiveFormsModule,

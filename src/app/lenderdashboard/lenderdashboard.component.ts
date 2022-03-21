@@ -16,7 +16,7 @@ export class LenderdashboardComponent implements OnInit {
   accountnumber: string;
   ifsccode: string;
   transactions: any;
-
+  public month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
   constructor(private router: Router, private dbService: DBService, private userService: UserService) { 
     this.maturityDate = "";
   }
@@ -48,5 +48,8 @@ export class LenderdashboardComponent implements OnInit {
 
   investScreen(){
     this.router.navigate(['/investmoney']);
+  }
+  convertString(str) {
+    return parseInt(str);
   }
 }

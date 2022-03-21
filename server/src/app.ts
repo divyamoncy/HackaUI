@@ -4,6 +4,7 @@ import logger from './util/logger';
 
 
 import { PORT, SESSION_SECRET, TIMEOUT, FFDC_URL } from './util/config';
+import { ObjectID } from 'bson';
 const httpPorxy = require('http-proxy');
 const queryString = require('querystring');
 
@@ -221,6 +222,20 @@ app.post('/insertTransaction', (req, res) => {
 app.post('/insertInvestment', (req, res) => {
   console.log('POST request to insert investment');
   InvestmentsCollection.insertOne(req.body);
+  res.send({"success":"done"});
+})
+
+app.post('/updatePrepayment/:id', (req, res) => {
+  console.log('POST request to update Prepayment');
+  console.log(req.body.amount);
+  LoanCollection.updateOne(
+    { "_id" : new ObjectID(req.params.id) },
+    { $set: { "unpaidPrincipal" : req.body.amount }}, function(err, res) {
+      if (err) throw err;
+      console.log(res);
+      console.log("1 document updated");
+      //db.close();
+    });
   res.send({"success":"done"});
 })
 

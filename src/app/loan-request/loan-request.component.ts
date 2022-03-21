@@ -61,6 +61,7 @@ export class LoanRequestComponent implements OnInit {
     var data = {};
     data["customerId"] = this.customerId;
     data["amount"] = this.loanRequest.value.loanamount;
+    data["unpaidPrincipal"] = this.loanRequest.value.loanamount;
     data["purpose"] = this.loanRequest.value.loanpurpose;
     data["loanType"] = "Personal";
     data["requestDate"] = new Date().toISOString().split("T")[0];
@@ -77,6 +78,7 @@ export class LoanRequestComponent implements OnInit {
     var data = {};
     data["customerId"] = this.customerId;
     data["amount"] = this.loanRequest.value.loanamount;
+    data["unpaidPrincipal"] = this.loanRequest.value.loanamount;
     data["purpose"] = this.loanRequest.value.loanpurpose;
     data["loanType"] = "Instant";
     data["requestDate"] = new Date().toISOString().split("T")[0];

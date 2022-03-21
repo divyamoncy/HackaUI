@@ -13,6 +13,7 @@ import { OrganisationOnboardingComponent } from './organisation-onboarding/organ
 import { GetStartedComponent } from './get-started/get-started.component';
 import { LenderdashboardComponent } from './lenderdashboard/lenderdashboard.component';
 import { InvestmoneyComponent } from './investmoney/investmoney.component';
+import { CreatePrepaymentComponent } from './create-prepayment/create-prepayment.component';
 
 const routes: Routes = [
   { path: 'borrowersignup', component: BorrowersignupComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'ngoSignUp', component: NgoSignUpComponent },
   { path: 'getStarted', component: GetStartedComponent },
   {path : 'lenderdashboard', component: LenderdashboardComponent},
-  {path : 'investmoney', component: InvestmoneyComponent}
+  {path : 'investmoney', component: InvestmoneyComponent},
+  {path : 'createPrepayment', component: CreatePrepaymentComponent}
 ];
 
 @NgModule({
