@@ -117,6 +117,12 @@ export class DBService {
         .pipe(map((response) => response));
       }
 
+    getInterestDetailsByCustomerId(customerId): Observable<any> {
+        
+          return this.httpClient.get<any>(`/interestDetails/`+customerId)
+          .pipe(map((response) => response));
+    }
+
     getPersonalLoanAmount(category, experience): Observable<any> {
       return this.httpClient.get<any>(`/personalLoan/`+category+`/`+experience)
       .pipe(map((response) => response));

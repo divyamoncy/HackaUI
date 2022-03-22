@@ -18,6 +18,7 @@ export class BorrowerdashboardComponent implements OnInit {
   public fullName: string;
   public interestDueDate: string;
   public transactions: any;
+  public interest: string;
   public month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
   constructor(private router: Router, private dbService: DBService, private userService: UserService) {
     this.show = 1;
@@ -50,6 +51,9 @@ export class BorrowerdashboardComponent implements OnInit {
     });
     this.dbService.getTransactionsByCustomerId(this.userService.getCustomerId()).subscribe((response) => {
       this.transactions = response;
+    });
+    this.dbService.getInterestDetailsByCustomerId(this.userService.getCustomerId()).subscribe((response) => {
+      this.interest = response[0].amount;
     });
   }
 
