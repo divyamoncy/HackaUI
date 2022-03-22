@@ -27,7 +27,6 @@ export class InvestmoneyComponent implements OnInit {
    this.dbService.getLenderDetailsByCustomerId(this.userService.getCustomerId()).subscribe((response) => {
      console.log(response);
       this.customerId = response[0].customerId;
-      
    });
   }
 
@@ -37,14 +36,12 @@ export class InvestmoneyComponent implements OnInit {
     data["amount"] = this.investMoney.value.amount;
     data["frequency"] = this.investMoney.value.frequency;
     data["requestDate"] = new Date().toISOString().split("T")[0];
+    data["description"] = "Investment";
+    data["type"] = "debit";
     // this.interest = (data["amount"]) / 100.0;
     // this.nextInterestDueDate = new Date( Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     this.dbService.insertInvestment(data).subscribe((response) => {
       console.log(response);
     });
-
-
   }
-
-
 }

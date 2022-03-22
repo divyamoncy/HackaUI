@@ -22,16 +22,10 @@ export class LenderdashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
+  //  let month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
     this.dbService.getInvestmentsByCustomerId(this.userService.getCustomerId()).subscribe((response)=>{
-      console.log(response);
       if(response.length != 0) {
-        this.investamount = response[0].amount;
-        let matDate = response[0].requestDate;
-        this.frequency = response[0].frequency;
-     //  let intDate = response[0].interestDueDate;
-    //   this.interestDueDate = intDate.substring(8,10)+" "+month[parseInt(intDate.substring(5,7))-1]+" "+(parseInt(intDate.substring(0,4))).toString();
-       this.maturityDate = matDate.substring(8,10)+" "+month[parseInt(matDate.substring(5,7))-1]+" "+(parseInt(matDate.substring(0,4)) + 1).toString();
+       this.transactions = response;
       }
       console.log("inside lender dashboard");
       console.log(response);
