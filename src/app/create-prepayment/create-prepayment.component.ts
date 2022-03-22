@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DBService } from '../db.service';
 import { UserService } from '../user.service';
 
@@ -12,7 +13,7 @@ export class CreatePrepaymentComponent implements OnInit {
   public prepayment: FormGroup;
   public unpaidPrincipal: number;
   public customerId: string;
-  constructor(public formBuilder: FormBuilder, private dbService: DBService, private userService: UserService) {
+  constructor(public formBuilder: FormBuilder, private dbService: DBService, private userService: UserService, private router: Router) {
     this.prepayment = formBuilder.group({
       amount: ['', Validators.required]
     });
@@ -51,6 +52,7 @@ export class CreatePrepaymentComponent implements OnInit {
         });
       }
     });
+    this.router.navigate(['/borrowerdashboard']);
 
   }
 

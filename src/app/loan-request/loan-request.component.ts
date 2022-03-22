@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiCallService } from '../api-call.service';
 import { DBService } from '../db.service';
 import { PaymentMandate } from '../models/account';
@@ -21,7 +22,7 @@ export class LoanRequestComponent implements OnInit {
   public mandate: PaymentMandate;
   public interest: any;
   public nextInterestDueDate: any;
-  constructor(private dbService: DBService, private userService: UserService, public formBuilder: FormBuilder, private apiCallService: ApiCallService) {
+  constructor(private dbService: DBService, private userService: UserService, public formBuilder: FormBuilder, private apiCallService: ApiCallService, private router: Router) {
     this.loanRequest = formBuilder.group({
       loanamount: ['', Validators.required],
       loanpurpose: ['', Validators.required]
@@ -67,6 +68,7 @@ export class LoanRequestComponent implements OnInit {
     data["requestDate"] = new Date().toISOString().split("T")[0];
     this.interest = (data["amount"]) / 100.0;
     this.nextInterestDueDate = new Date( Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    data["interestDueDate"] = this.nextInterestDueDate;
     this.dbService.insertLoan(data).subscribe((response) => {
       console.log(response);
     });
@@ -130,6 +132,7 @@ export class LoanRequestComponent implements OnInit {
         
       });
     });
+    this.router.navigate(['/borrowerdashboard']);
   }
 
   formatLabel(value: number) {
