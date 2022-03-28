@@ -17,13 +17,13 @@ export class CreatePrepaymentComponent implements OnInit {
     this.prepayment = formBuilder.group({
       amount: ['', Validators.required]
     });
-   }
+  }
 
   ngOnInit(): void {
-  
-    this.dbService.getCustomerLoans(this.userService.getCustomerId()).subscribe((response)=>{
+
+    this.dbService.getCustomerLoans(this.userService.getCustomerId()).subscribe((response) => {
       //let data = {};
-      if(response.length != 0) {
+      if (response.length != 0) {
         this.customerId = response[0].customerId;
         //data["amount"] = this.prepayment.value.amount;
         //console.log(response[0]["_id"]);
@@ -33,26 +33,35 @@ export class CreatePrepaymentComponent implements OnInit {
   }
 
   createPrincipalPayment() {
-    this.dbService.getCustomerLoans(this.userService.getCustomerId()).subscribe((response)=>{
+    this.dbService.getCustomerLoans(this.userService.getCustomerId()).subscribe((response) => {
       let data = {};
-      if(response.length != 0) {
+      if (response.length != 0) {
         data["amount"] = response[0]["unpaidPrincipal"] - this.prepayment.value.amount;
         console.log(response[0]["_id"]);
         this.dbService.insertPrepayment(response[0]["_id"], data).subscribe((resp) => {
           console.log(resp);
+          let interest = data["amount"] / 100.0;
+          let requestInterest = {};
+          requestInterest["amount"] = interest;
+          this.dbService.updateInterest(this.userService.getCustomerId(), requestInterest).subscribe((res) => {
+            console.log(res);
+            let transaction = {};
+            transaction["customerId"] = this.customerId;
+            transaction["date"] = new Date().toISOString().split("T")[0];
+            transaction["amount"] = this.prepayment.value.amount;
+            transaction["description"] = "Principal Payment";
+            transaction["type"] = "debit";
+            this.dbService.insertTransaction(transaction).subscribe((respi) => {
+              console.log(respi);
+              this.router.navigate(['/borrowerdashboard']);
+            });
+          });
         });
-        let transaction = {};
-        transaction["customerId"] = this.customerId;
-        transaction["date"] = new Date().toISOString().split("T")[0];
-        transaction["amount"] = this.prepayment.value.amount;
-        transaction["description"] = "Principal Payment";
-        transaction["type"] = "debit";
-        this.dbService.insertTransaction(transaction).subscribe((resp) => {
-          console.log(resp);
-        });
+
+
       }
     });
-    this.router.navigate(['/borrowerdashboard']);
+    
 
   }
 

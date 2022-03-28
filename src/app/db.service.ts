@@ -105,8 +105,20 @@ export class DBService {
             .pipe(map((response) => response));
     }
 
+    updateInterest(
+      id: string, interest: any
+    ): Observable<any> {
+        console.log(interest);
+          return this.httpClient.post(
+            `/updateInterest/`+id, interest, {
+              headers: { 
+                'Content-Type': 'application/json' }
+            })
+            .pipe(map((response) => response));
+    }
+
     getBorrowerDetailsByCustomerId(customerId): Observable<any> {
-      customerId='029417';
+      //customerId='029417';
       return this.httpClient.get<any>(`/borrower/`+customerId)
       .pipe(map((response) => response));
     }

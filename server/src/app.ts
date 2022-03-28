@@ -239,6 +239,20 @@ app.post('/updatePrepayment/:id', (req, res) => {
   res.send({"success":"done"});
 })
 
+app.post('/updateInterest/:id', (req, res) => {
+  console.log('POST request to update interest');
+  console.log(req.body.amount);
+  InterestDetailsCollection.updateOne(
+    { "customerId" : req.params.id },
+    { $set: { "amount" : req.body.amount }}, function(err, res) {
+      if (err) throw err;
+      console.log(res);
+      console.log("1 document updated");
+      //db.close();
+    });
+  res.send({"success":"done"});
+})
+
 // app.post('/insertLoan', (req, res) => {
 //   console.log('POST request to insert loan');
 //   LoanCollection.insertOne(req.body);

@@ -17,8 +17,8 @@ export class LoanRequestComponent implements OnInit {
   public customerId: string;
   public loanRequest: FormGroup;
   public categoryMapping;
-  public companyName:string;
-  public focus:number;
+  public companyName: string;
+  public focus: number;
   public mandate: PaymentMandate;
   public interest: any;
   public nextInterestDueDate: any;
@@ -27,12 +27,14 @@ export class LoanRequestComponent implements OnInit {
       loanamount: ['', Validators.required],
       loanpurpose: ['', Validators.required]
     });
-    this.categoryMapping = {"Infosys":"A",
-    "Axis Bank":"A",
-    "Asian Paints":"A",
-    "ITC":"A",
-    "Borosil":"B",
-    "Black Box":"B"};
+    this.categoryMapping = {
+      "Infosys": "A",
+      "Axis Bank": "A",
+      "Asian Paints": "A",
+      "ITC": "A",
+      "Borosil": "B",
+      "Black Box": "B"
+    };
   }
 
   ngOnInit(): void {
@@ -46,7 +48,7 @@ export class LoanRequestComponent implements OnInit {
         console.log(res);
         this.personalAmount = response[0].monthlysalary * res[0].months;
       });
-      
+
     });
   }
 
@@ -67,7 +69,7 @@ export class LoanRequestComponent implements OnInit {
     data["loanType"] = "Personal";
     data["requestDate"] = new Date().toISOString().split("T")[0];
     this.interest = (data["amount"]) / 100.0;
-    this.nextInterestDueDate = new Date( Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    this.nextInterestDueDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     data["interestDueDate"] = this.nextInterestDueDate;
     this.dbService.insertLoan(data).subscribe((response) => {
       console.log(response);
@@ -85,7 +87,7 @@ export class LoanRequestComponent implements OnInit {
     data["loanType"] = "Instant";
     data["requestDate"] = new Date().toISOString().split("T")[0];
     this.interest = (data["amount"]) / 100.0;
-    this.nextInterestDueDate = new Date( Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    this.nextInterestDueDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     data["interestDueDate"] = this.nextInterestDueDate;
     this.dbService.insertLoan(data).subscribe((response) => {
     });
@@ -98,19 +100,19 @@ export class LoanRequestComponent implements OnInit {
     this.mandate.paymentScheme = "BACS";
     this.mandate.mandateDescription = "Interest Payment";
     this.mandate.validFromDate = new Date().toISOString().split("T")[0];
-    this.mandate.validToDate = new Date( Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    this.mandate.validToDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     this.mandate.amountType = "VARIABLE";
     this.mandate.mandateCurrency = "USD";
     this.mandate.collectionFrequency = "ADHOC";
     this.mandate.creditAccountId = "010100294280000";
     this.mandate.creditBankIdentifier = "089999";
     this.mandate.debitBankIdentifier = "090013";
-    this.mandate.debitAccountType ="BBAN";
-    this.mandate.debitCustomerCountry ="US";
+    this.mandate.debitAccountType = "BBAN";
+    this.mandate.debitCustomerCountry = "US";
     let debitAccount = this.userService.getAccountId();
     this.mandate.debitAccountId = debitAccount.substring(debitAccount.length - 8);
-    this.apiCallService.getToken().subscribe((tok)=>{
-      this.apiCallService.postMandate(this.mandate, tok).subscribe((response)=>{
+    this.apiCallService.getToken().subscribe((tok) => {
+      this.apiCallService.postMandate(this.mandate, tok).subscribe((response) => {
         console.log(response.mandateReference);
         let interestDetails = {};
         interestDetails["amount"] = this.interest;
@@ -119,20 +121,22 @@ export class LoanRequestComponent implements OnInit {
         interestDetails["mandateReference"] = response.mandateReference;
         this.dbService.insertInterestDetails(interestDetails).subscribe((resp) => {
           console.log(resp);
+          let transaction = {};
+          transaction["customerId"] = this.customerId;
+          transaction["date"] = new Date().toISOString().split("T")[0];
+          transaction["amount"] = this.loanRequest.value.loanamount;
+          transaction["description"] = "Loan Disbursement";
+          transaction["type"] = "credit";
+          this.dbService.insertTransaction(transaction).subscribe((reso) => {
+            console.log(reso);
+            this.router.navigate(['/borrowerdashboard']);
+          });
         });
-        let transaction = {};
-        transaction["customerId"] = this.customerId;
-        transaction["date"] = new Date().toISOString().split("T")[0];
-        transaction["amount"] = this.loanRequest.value.loanamount;
-        transaction["description"] = "Loan Disbursement";
-        transaction["type"] = "credit";
-        this.dbService.insertTransaction(transaction).subscribe((resp) => {
-          console.log(resp);
-        });
-        
+
+
       });
     });
-    this.router.navigate(['/borrowerdashboard']);
+    
   }
 
   formatLabel(value: number) {

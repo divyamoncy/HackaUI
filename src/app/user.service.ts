@@ -21,11 +21,11 @@ export class UserService {
     this.accountId = accountId;
   }
   getAccountId() {
-    return "010100294300000";
-   // return this.accountId;
+    //return "010100294300000";
+    return this.accountId;
   }
   getCustomerId() {
-    return "029417";
-   // return this.customerID;
+   // return "029417";
+    return this.customerID;
   }
 }
