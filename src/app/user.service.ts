@@ -11,21 +11,28 @@ export class UserService {
   setBorrowerDetails(customerId: string, userType: string) {
     this.customerID = customerId;
     this.userType = userType;
+    sessionStorage.setItem('customerID', customerId);
+    sessionStorage.setItem('userType', userType);
   }
   
   setLenderDetails(customerId: string, userType: string) {
     this.customerID = customerId;
     this.userType = userType;
+    sessionStorage.setItem('customerID', customerId);
+    sessionStorage.setItem('userType', userType);
   }
   setAccountId(accountId: string) {
     this.accountId = accountId;
+    sessionStorage.setItem('accountId', accountId);
   }
   getAccountId() {
     //return "010100294300000";
-    return this.accountId;
+    //return this.accountId;
+    return sessionStorage.getItem('accountId');
   }
   getCustomerId() {
    // return "029417";
-    return this.customerID;
+   return sessionStorage.getItem('customerID');
+    //return this.customerID;
   }
 }
