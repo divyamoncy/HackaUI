@@ -79,5 +79,8 @@ export class BorrowerdashboardComponent implements OnInit {
   convertString(str) {
     return parseInt(str);
   }
+  createForeclosure() {
+    this.router.navigate(['/createPrepayment']);
+  }
 
 }

@@ -27,11 +27,14 @@ export class BorroweronboardingComponent implements OnInit {
   public dbBorrower: DBBorrower;
   public account: Account;
   public accountDetails: AccountAdditionalDetails;
+  public loading: number;
+  public loadText: string;
   //public resp: any;
   
   constructor(public formBuilder: FormBuilder, private apiCallService: ApiCallService, public httpClient: HttpClient, 
     private dbService: DBService, private userService: UserService, private router: Router) {
     this.focus = 1;
+    this.loading = 0;
     this.borrowerOnboardingForm = formBuilder.group({
       firstname: ['',Validators.required],
       lastname: ['', Validators.required],
@@ -78,8 +81,44 @@ export class BorroweronboardingComponent implements OnInit {
   changeFocusToFour() {
     this.focus = 4;
   }
+  onReady(callback) {
+    setTimeout( function(){ 
+      // Do something after 1 second 
+      this.loadText ="Saving your details 💼";
+    }  , 500 );
+     setTimeout( function(){ 
+      // Do something after 1 second 
+      this.loadText ="Doing some magic 👾";
+    }  , 1000 );
+    
+    setTimeout( function(){ 
+      // Do something after 1 second 
+      this.loadText ="We are almost there 🚀";
+    }  , 1400 );
+     
+    setTimeout( function(){ 
+      // Do something after 1 second 
+      this.loadText ="Getting things ready ✔️";
+    }  , 1900 );
+     
+    
+      var intervalID = window.setInterval(checkReady, 3000);
+      function checkReady() {
+          if (this.loading==2) {
+              window.clearInterval(intervalID);
+              callback.call(this);
+          }
+      }
+  }
+
+  
 
   createCustomer() {
+  //   this.onReady(() => {
+  //     this.router.navigate(['/borrowerdashboard']);
+  // });
+    this.loading = 1;
+    this.loadText ="We are almost there 🚀";
     this.customer = {} as Customer;
     this.dbBorrower = {} as DBBorrower;
     this.identification = {} as Identification;
@@ -145,7 +184,9 @@ export class BorroweronboardingComponent implements OnInit {
     
     //console.log(JSON.stringify(this.customer));
     this.apiCallService.getToken().subscribe((res)=>{
+
       this.apiCallService.postCustomer(this.customer, res).subscribe((resp)=>{
+        
         console.log("Inside API call");
         console.log(resp.customerId);
         this.userService.setBorrowerDetails(resp.customerId, "Borrower");
@@ -160,7 +201,9 @@ export class BorroweronboardingComponent implements OnInit {
           this.apiCallService.postAccount(this.account, tok).subscribe((response)=>{
             console.log(response.accountId);
             this.userService.setAccountId(response.accountId);
+            this.loading == 2;
             this.router.navigate(['/borrowerdashboard']);
+            
           });
         });
         this.dbService.insertBorrower(this.dbBorrower).subscribe((resp)=>{
