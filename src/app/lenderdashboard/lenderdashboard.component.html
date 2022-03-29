@@ -2,7 +2,6 @@
     <!-- <div class="h-[30vh] bg-blue-500 w-full">
         <h3>Hellooooooo</h3>
     </div> -->
-
     <div class="w-[18vw] bg-white border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 h-screen">
         <div class="p-5">
             <img class="mb-3 w-24 h-24 rounded-full shadow-lg mx-auto" src="/assets/avatar.png" alt="Avatar" />
@@ -21,7 +20,7 @@
             <div *ngFor="let item of transactions; index as i; " class="m-2 ml-4 mt-4 p-5 w-[28vw] rounded text-gray-700 shadow-lg shadow-gray-300/50 flex flex-row">
                 <img class="h-24 mx-6 my-auto" src="/assets/loan.png" alt="Loan" />
                 <div class="ml-2 my-auto">
-                    <h3 class="mb-1 text-lg font-bold text-blue-600 dark:text-gray-700">Portfolio {{i+1}}</h3>
+                    <h3 class="mb-1 text-lg font-bold text-blue-600 dark:text-gray-700">Folio {{i+1}}</h3>
                     <h3 class="mb-1 text-base text-gray-700 dark:text-gray-700">Total Amount Invested</h3>
                     <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">₹{{item.amount}}</h3>
                     <h3 class="mb-1 text-base text-gray-700 dark:text-gray-700">Interest Frequency</h3>
@@ -31,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class = "overflow-y-auto">
+        <div class = "overflow-y-auto" *ngIf="count!=0">
             <div class="m-2 ml-4 mt-4 p-8 w-[58vw] rounded text-gray-700 shadow-lg shadow-gray-300/50 overflow-y-auto">
                 <h3 class="mb-1 text-lg font-bold text-gray-700 dark:text-gray-700">Transactions</h3>
                 <hr />
@@ -61,8 +60,17 @@
                 <hr/>
               </div>
             </div>
-        
+            
 
 
     </div>
+    
 </div>
+<div class="flex flex-col grow bg-gray-100" *ngIf="count==0">
+  <div class="w-full m-auto flex flex-col">
+    <img class="m-auto" src="/assets/noresults.jpg" alt="No results" />
+    <p class="mt-6 text-blue-500 font-bold text-3xl text-center">
+      You have no investments yet.
+    </p>
+    </div>
+    </div>
