@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiCallService } from '../api-call.service';
 import { DBService } from '../db.service';
 import { UserService } from '../user.service';
@@ -16,7 +17,7 @@ export class InvestmoneyComponent implements OnInit {
   public nextInterestDueDate: any;
 
 
-  constructor(private dbService: DBService, private userService: UserService, public formBuilder: FormBuilder, private apiCallService: ApiCallService) {
+  constructor(private dbService: DBService, private userService: UserService, public formBuilder: FormBuilder, private apiCallService: ApiCallService,private router: Router) {
     this.investMoney = formBuilder.group({
       amount: ['', Validators.required],
       frequency: ['', Validators.required]
@@ -42,6 +43,8 @@ export class InvestmoneyComponent implements OnInit {
     // this.nextInterestDueDate = new Date( Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     this.dbService.insertInvestment(data).subscribe((response) => {
       console.log(response);
+      this.router.navigate(['/lenderdashboard']);
     });
+    
   }
 }
