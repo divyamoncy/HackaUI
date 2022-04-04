@@ -105,6 +105,18 @@ export class DBService {
             .pipe(map((response) => response));
     }
 
+    forecloseLoan(
+      id: string, foreclosure: any
+    ): Observable<any> {
+        console.log(foreclosure);
+          return this.httpClient.post(
+            `/updateLoanStatus/`+id, foreclosure, {
+              headers: { 
+                'Content-Type': 'application/json' }
+            })
+            .pipe(map((response) => response));
+    }
+
     updateInterest(
       id: string, interest: any
     ): Observable<any> {
@@ -140,8 +152,13 @@ export class DBService {
       .pipe(map((response) => response));
     }
 
-    getCustomerLoans( customerId ): Observable<any> {
+    getActiveCustomerLoans( customerId ): Observable<any> {
       return this.httpClient.get<any>(`/`+customerId+`/loans`)
+      .pipe(map((response) => response));
+    }
+
+    getClosedCustomerLoans( customerId ): Observable<any> {
+      return this.httpClient.get<any>(`/`+customerId+`/closedloans`)
       .pipe(map((response) => response));
     }
 

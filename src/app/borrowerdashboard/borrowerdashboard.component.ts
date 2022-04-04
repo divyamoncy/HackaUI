@@ -31,7 +31,7 @@ export class BorrowerdashboardComponent implements OnInit {
 
   ngOnInit(): void {
     //let month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
-    this.dbService.getCustomerLoans(this.userService.getCustomerId()).subscribe((response)=>{
+    this.dbService.getActiveCustomerLoans(this.userService.getCustomerId()).subscribe((response)=>{
       if(response.length != 0) {
         this.loanCount = 1;
         this.loan = response[0];
@@ -80,7 +80,7 @@ export class BorrowerdashboardComponent implements OnInit {
     return parseInt(str);
   }
   createForeclosure() {
-    this.router.navigate(['/createPrepayment']);
+    this.router.navigate(['/foreclosure']);
   }
 
 }

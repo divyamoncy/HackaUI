@@ -19,6 +19,7 @@ import { GetStartedComponent } from './get-started/get-started.component';
 import { LenderdashboardComponent } from './lenderdashboard/lenderdashboard.component';
 import { InvestmoneyComponent } from './investmoney/investmoney.component';
 import { CreatePrepaymentComponent } from './create-prepayment/create-prepayment.component';
+import { ForeclosureComponent } from './foreclosure/foreclosure.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CreatePrepaymentComponent } from './create-prepayment/create-prepayment
     GetStartedComponent,
     LenderdashboardComponent,
     InvestmoneyComponent,
-    CreatePrepaymentComponent
+    CreatePrepaymentComponent,
+    ForeclosureComponent
   ],
   imports: [
     ReactiveFormsModule,

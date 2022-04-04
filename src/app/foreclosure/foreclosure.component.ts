@@ -1,42 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DBService } from '../db.service';
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-create-prepayment',
-  templateUrl: './create-prepayment.component.html',
-  styleUrls: ['./create-prepayment.component.css']
+  selector: 'app-foreclosure',
+  templateUrl: './foreclosure.component.html',
+  styleUrls: ['./foreclosure.component.css']
 })
-export class CreatePrepaymentComponent implements OnInit {
-  public prepayment: FormGroup;
+export class ForeclosureComponent implements OnInit {
+  public foreclosure: FormGroup;
   public unpaidPrincipal: number;
-  public customerId: string;
+  public interest: number;
+  public done: number;
+  public loan: any;
   constructor(public formBuilder: FormBuilder, private dbService: DBService, private userService: UserService, private router: Router) {
-    this.prepayment = formBuilder.group({
-      amount: ['', Validators.required]
-    });
+    this.done = 0;
   }
 
   ngOnInit(): void {
-
     this.dbService.getActiveCustomerLoans(this.userService.getCustomerId()).subscribe((response) => {
-      //let data = {};
       if (response.length != 0) {
-        this.customerId = response[0].customerId;
-        //data["amount"] = this.prepayment.value.amount;
-        //console.log(response[0]["_id"]);
+
+        this.loan = response[0];
+
         this.unpaidPrincipal = response[0].unpaidPrincipal;
+
       }
+      console.log(response);
+    });
+    this.dbService.getInterestDetailsByCustomerId(this.userService.getCustomerId()).subscribe((response) => {
+      this.interest = response[0].amount;
     });
   }
-
-  createPrincipalPayment() {
+  createForeclosure() {
+    this.done = 1;
     this.dbService.getActiveCustomerLoans(this.userService.getCustomerId()).subscribe((response) => {
       let data = {};
       if (response.length != 0) {
-        data["amount"] = response[0]["unpaidPrincipal"] - this.prepayment.value.amount;
+        data["amount"] = 0;
         console.log(response[0]["_id"]);
         this.dbService.insertPrepayment(response[0]["_id"], data).subscribe((resp) => {
           console.log(resp);
@@ -46,22 +49,32 @@ export class CreatePrepaymentComponent implements OnInit {
           this.dbService.updateInterest(this.userService.getCustomerId(), requestInterest).subscribe((res) => {
             console.log(res);
             let transaction = {};
-            transaction["customerId"] = this.customerId;
+            transaction["customerId"] = this.userService.getCustomerId();
             transaction["date"] = new Date().toISOString().split("T")[0];
-            transaction["amount"] = this.prepayment.value.amount;
+            transaction["amount"] = response[0].unpaidPrincipal;
             transaction["description"] = "Principal Payment";
             transaction["type"] = "debit";
+            let foreclose = {};
+            transaction["status"] = "closed";
+            this.dbService.forecloseLoan(response[0]["_id"], foreclose).subscribe((resps) => {
+                console.log(resps);
+            });
             this.dbService.insertTransaction(transaction).subscribe((respi) => {
               console.log(respi);
-              this.router.navigate(['/borrowerdashboard']);
+              let transaction = {};
+              transaction["customerId"] = this.userService.getCustomerId();
+              transaction["date"] = new Date().toISOString().split("T")[0];
+              transaction["amount"] = this.interest;
+              transaction["description"] = "Interest Payment";
+              transaction["type"] = "debit";
+              this.dbService.insertTransaction(transaction).subscribe((respi2) => {
+                this.router.navigate(['/borrowerdashboard']);
+              });
             });
           });
         });
-
-
       }
     });
-    
 
   }
 

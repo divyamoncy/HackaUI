@@ -68,6 +68,7 @@ export class LoanRequestComponent implements OnInit {
     data["purpose"] = this.loanRequest.value.loanpurpose;
     data["loanType"] = "Personal";
     data["requestDate"] = new Date().toISOString().split("T")[0];
+    data["status"] = "active";
     this.interest = (data["amount"]) / 100.0;
     this.nextInterestDueDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     data["interestDueDate"] = this.nextInterestDueDate;
@@ -86,6 +87,7 @@ export class LoanRequestComponent implements OnInit {
     data["purpose"] = this.loanRequest.value.loanpurpose;
     data["loanType"] = "Instant";
     data["requestDate"] = new Date().toISOString().split("T")[0];
+    data["status"] = "active";
     this.interest = (data["amount"]) / 100.0;
     this.nextInterestDueDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     data["interestDueDate"] = this.nextInterestDueDate;

@@ -239,6 +239,20 @@ app.post('/updatePrepayment/:id', (req, res) => {
   res.send({"success":"done"});
 })
 
+app.post('/updateLoanStatus/:id', (req, res) => {
+  console.log('POST request to update loan status');
+  console.log(req.body.amount);
+  LoanCollection.updateOne(
+    { "_id" : new ObjectID(req.params.id) },
+    { $set: { "status" : req.body.status, "unpaidPrincipal" : req.body.amount }}, function(err, res) {
+      if (err) throw err;
+      console.log(res);
+      console.log("1 document updated");
+      //db.close();
+    });
+  res.send({"success":"done"});
+})
+
 app.post('/updateInterest/:id', (req, res) => {
   console.log('POST request to update interest');
   console.log(req.body.amount);
@@ -281,8 +295,18 @@ app.get('/interestDetails/:id', function(req , res){
 });
 
 app.get('/:id/loans', function(req , res){
-  console.log('GET request to get loans by customer ID');
-  LoanCollection.find({"customerId" : req.params.id}).toArray(function(err, result) {
+  console.log('GET request to get active loans by customer ID');
+  LoanCollection.find({"customerId" : req.params.id, "status" : "active"}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log("found loans");
+    console.log(result);
+    res.send(result);
+  }); 
+});
+
+app.get('/:id/closedloans', function(req , res){
+  console.log('GET request to get closed loans by customer ID');
+  LoanCollection.find({"customerId" : req.params.id, "status" : "closed"}).toArray(function(err, result) {
     if (err) throw err;
     console.log("found loans");
     console.log(result);
