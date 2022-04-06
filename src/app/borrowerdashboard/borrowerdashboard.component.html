@@ -9,13 +9,13 @@
       <h3 class="mt-3 mb-1 text-xl font-medium text-gray-900 dark:text-white mx-auto text-center">{{fullName}}</h3>
       
 
-      <a class="text-sm text-gray-500 dark:text-gray-400 mt-2 ml-4">
+      <a class="text-sm text-gray-500 dark:text-gray-400 mt-2 ml-4" [ngClass]="{'text-blue-500': active==1}">
         <span><svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
         </svg></span> Dashboard</a>
 
 
-      <a class="text-sm text-gray-500 dark:text-gray-400 mt-2 ml-4">
+      <a class="text-sm text-gray-500 dark:text-gray-400 mt-2 ml-4" [ngClass]="{'text-blue-500': active==2}" (click)="changeActiveToTwo()">
         <span><svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg></span> Past loans</a>
@@ -25,7 +25,7 @@
       </svg></span> Logout</a>
     </div>
   </div>
-  <div class="flex flex-col" *ngIf="loanCount!=0">
+  <div class="flex flex-col" *ngIf="loanCount!=0 && active==1">
     <div class="w-full h-[35vh] flex flex-row">
       <div class="m-2 ml-4 mt-4 p-5 w-[28vw] rounded text-gray-700 shadow-lg shadow-gray-300/50 flex flex-row">
         <img class="h-24 mx-6 my-auto" src="/assets/loan.png" alt="Loan" />
@@ -125,16 +125,35 @@
 
 
   </div>
-  <div class="flex flex-col grow bg-gray-100" *ngIf="loanCount==0">
+  <div class="flex flex-col grow bg-gray-100" *ngIf="loanCount==0 && active == 1">
     <div class="w-[50vw] m-auto flex flex-col">
       <img class="m-auto" src="/assets/noresults.jpg" alt="No results" />
       <p class="mt-6 text-blue-500 font-bold text-3xl text-center">
-        You have no loans yet.
+        You have no active loans yet.
       </p>
       <button class="self-center w-[12vw] mt-10 px-6 py-4 text-xs md:text-base font-semibold rounded-md bg-blue-500 text-white"
           type="submit" (click)="loanScreen()">
           Create a loan
         </button>
+    </div>
+  </div>
+  <div class="flex flex-row bg-gray-100 grow" *ngIf="active == 2">
+    <div *ngFor="let item of closedLoans; " class="rounded-md bg-white shadow-gray-300/50 m-6 p-6 h-[40vh]">
+      <img class="m-auto h-[80px]" src="/assets/loanpic.svg" alt="No results" />
+      <p class="mt-6 text-blue-500 font-bold text-2xl text-center">
+        {{item.loanType}} Loan
+      </p>
+      <p class="text-base text-center">
+        Purpose <strong>{{item.purpose}}</strong>
+      </p>
+      <p class="text-base text-center">
+        Amount <strong>₹{{item.amount}}</strong>
+      </p>
+      <p class="text-base text-center">
+        Requested Date <strong>{{item.requestDate.substring(8,10)}} {{month[convertString(item.requestDate.substring(5,7))-1]}}
+          {{item.requestDate.substring(0,4)}}</strong>
+      </p>
+     
     </div>
   </div>
 </div>

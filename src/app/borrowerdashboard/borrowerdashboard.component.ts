@@ -21,8 +21,11 @@ export class BorrowerdashboardComponent implements OnInit {
   public interest: string;
   public loanCount: number;
   public loan: any;
+  public active: number;
+  public closedLoans: any;
   public month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
   constructor(private router: Router, private dbService: DBService, private userService: UserService) {
+    this.active = 1;
     this.show = 1;
     this.accountnumber = "";
     this.maturityDate = "";
@@ -47,6 +50,9 @@ export class BorrowerdashboardComponent implements OnInit {
       console.log("inside dashboard");
       console.log(response);
     });
+    this.dbService.getClosedCustomerLoans(this.userService.getCustomerId()).subscribe((response2)=>{
+      this.closedLoans = response2;
+    });
     this.dbService.getBorrowerDetailsByCustomerId(this.userService.getCustomerId()).subscribe((response) => {
       //console.log(response);
       this.fullName = response[0].firstName + " " + response[0].lastName;
@@ -69,6 +75,9 @@ export class BorrowerdashboardComponent implements OnInit {
 
   changeShowToTwo(){
     this.show = 2;
+  }
+  changeActiveToTwo() {
+    this.active = 2;
   }
   loanScreen(){
     this.router.navigate(['/loanrequest']);

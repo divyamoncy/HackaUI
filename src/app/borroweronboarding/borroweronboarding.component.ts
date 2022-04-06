@@ -201,7 +201,7 @@ export class BorroweronboardingComponent implements OnInit {
           this.apiCallService.postAccount(this.account, tok).subscribe((response)=>{
             console.log(response.accountId);
             this.userService.setAccountId(response.accountId);
-            this.loading == 2;
+            this.loading = 2;
             this.router.navigate(['/borrowerdashboard']);
             
           });

@@ -55,7 +55,8 @@ export class ForeclosureComponent implements OnInit {
             transaction["description"] = "Principal Payment";
             transaction["type"] = "debit";
             let foreclose = {};
-            transaction["status"] = "closed";
+            foreclose["status"] = "closed";
+            foreclose["amount"] = 0;
             this.dbService.forecloseLoan(response[0]["_id"], foreclose).subscribe((resps) => {
                 console.log(resps);
             });
