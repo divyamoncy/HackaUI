@@ -1,4 +1,12 @@
-<div class="flex flex-row h-screen mx-[20vw]">
+<nav class="bg-white border-gray-200 px-2 sm:px-4 py-6 rounded shadow-md dark:bg-gray-800">
+    <div class="container flex flex-wrap justify-between items-center mx-auto ml-2 mr-2">
+      <a href="https://flowbite.com" class="flex items-center">
+          <img src="/assets/fijo.png" class="h-6 sm:h-9" alt="Flowbite Logo" />
+          <span class="self-center text-3xl font-bold whitespace-nowrap text-blue-500">fijo</span>
+      </a>
+      </div>
+  </nav>
+<div class="flex flex-row mt-20 mx-[20vw]">
 
 
     <div class="my-auto mx-2 p-10 w-[56vw] rounded shadow-lg shadow-blue-500/20 flex flex-col">
@@ -21,6 +29,21 @@
                     Confirm
                 </button>
             </form>
+        </div>
+        <div *ngIf="done==1">
+            <img class="h-[30vh] m-auto mt-4" src="/assets/success.gif" alt="Loan" />
+            <h3 class="mb-5 text-xl font-bold text-center">{{loan.loanType}} loan for ₹{{loan.amount}} has been closed successfully.</h3>
+            <div class="flex flex-row grow text-center">
+            <button class="flex-auto self-center m-2 mt-10 px-6 py-4 text-xs md:text-base font-semibold rounded-md bg-blue-500 text-white"
+          >
+          Download Foreclosure
+        </button>
+        <button class="flex-auto self-center m-2 mt-10 px-6 py-4 text-xs md:text-base font-semibold rounded-md bg-blue-500 text-white"
+          (click)="goToDashboard()">
+          Return to Dashboard
+        </button>
+    </div>
+
         </div>
     </div>
 

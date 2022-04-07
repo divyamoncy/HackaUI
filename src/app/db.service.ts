@@ -129,6 +129,19 @@ export class DBService {
             .pipe(map((response) => response));
     }
 
+    deleteInterest(
+      id: string
+    ): Observable<any> {
+        //console.log(interest);
+        let x = []
+          return this.httpClient.post(
+            `/deleteInterest/`+id, {}, {
+              headers: { 
+                'Content-Type': 'application/json' }
+            })
+            .pipe(map((response) => response));
+    }
+
     getBorrowerDetailsByCustomerId(customerId): Observable<any> {
       //customerId='029417';
       return this.httpClient.get<any>(`/borrower/`+customerId)

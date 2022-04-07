@@ -267,6 +267,19 @@ app.post('/updateInterest/:id', (req, res) => {
   res.send({"success":"done"});
 })
 
+app.post('/deleteInterest/:id', (req, res) => {
+  console.log('POST request to delete interest');
+  
+  InterestDetailsCollection.deleteMany(
+    { "customerId" : req.params.id }, function(err, res) {
+      if (err) throw err;
+      console.log(res);
+      console.log("1 document deleted");
+      //db.close();
+    });
+  res.send({"success":"done"});
+})
+
 // app.post('/insertLoan', (req, res) => {
 //   console.log('POST request to insert loan');
 //   LoanCollection.insertOne(req.body);

@@ -35,7 +35,7 @@ export class ForeclosureComponent implements OnInit {
     });
   }
   createForeclosure() {
-    this.done = 1;
+    //this.done = 1;
     this.dbService.getActiveCustomerLoans(this.userService.getCustomerId()).subscribe((response) => {
       let data = {};
       if (response.length != 0) {
@@ -44,9 +44,9 @@ export class ForeclosureComponent implements OnInit {
         this.dbService.insertPrepayment(response[0]["_id"], data).subscribe((resp) => {
           console.log(resp);
           let interest = data["amount"] / 100.0;
-          let requestInterest = {};
-          requestInterest["amount"] = interest;
-          this.dbService.updateInterest(this.userService.getCustomerId(), requestInterest).subscribe((res) => {
+          // let requestInterest = {};
+          // requestInterest["amount"] = interest;
+          this.dbService.deleteInterest(this.userService.getCustomerId()).subscribe((res) => {
             console.log(res);
             let transaction = {};
             transaction["customerId"] = this.userService.getCustomerId();
@@ -69,7 +69,8 @@ export class ForeclosureComponent implements OnInit {
               transaction["description"] = "Interest Payment";
               transaction["type"] = "debit";
               this.dbService.insertTransaction(transaction).subscribe((respi2) => {
-                this.router.navigate(['/borrowerdashboard']);
+                this.done = 1;
+                //this.router.navigate(['/borrowerdashboard']);
               });
             });
           });
@@ -77,6 +78,9 @@ export class ForeclosureComponent implements OnInit {
       }
     });
 
+  }
+  goToDashboard() {
+    this.router.navigate(['/borrowerdashboard']);
   }
 
 }
