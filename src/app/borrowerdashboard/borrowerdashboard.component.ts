@@ -79,6 +79,9 @@ export class BorrowerdashboardComponent implements OnInit {
   changeActiveToTwo() {
     this.active = 2;
   }
+  changeActiveToOne() {
+    this.active = 1;
+  }
   loanScreen(){
     this.router.navigate(['/loanrequest']);
   }
