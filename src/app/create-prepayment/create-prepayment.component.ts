@@ -11,9 +11,11 @@ import { UserService } from '../user.service';
 })
 export class CreatePrepaymentComponent implements OnInit {
   public prepayment: FormGroup;
+  public done: number;
   public unpaidPrincipal: number;
   public customerId: string;
   constructor(public formBuilder: FormBuilder, private dbService: DBService, private userService: UserService, private router: Router) {
+    this.done = 0;
     this.prepayment = formBuilder.group({
       amount: ['', Validators.required]
     });
@@ -33,6 +35,7 @@ export class CreatePrepaymentComponent implements OnInit {
   }
 
   createPrincipalPayment() {
+    
     this.dbService.getActiveCustomerLoans(this.userService.getCustomerId()).subscribe((response) => {
       let data = {};
       if (response.length != 0) {
@@ -53,7 +56,8 @@ export class CreatePrepaymentComponent implements OnInit {
             transaction["type"] = "debit";
             this.dbService.insertTransaction(transaction).subscribe((respi) => {
               console.log(respi);
-              this.router.navigate(['/borrowerdashboard']);
+              this.done = 1;
+              //this.router.navigate(['/borrowerdashboard']);
             });
           });
         });
@@ -63,6 +67,9 @@ export class CreatePrepaymentComponent implements OnInit {
     });
     
 
+  }
+  goToDashboard() {
+    this.router.navigate(['/borrowerdashboard']);
   }
 
 }
