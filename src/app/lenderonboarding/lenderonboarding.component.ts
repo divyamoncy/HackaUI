@@ -162,6 +162,17 @@ export class LenderonboardingComponent implements OnInit {
         });
     });
   }
+  populateBankDetails() {
+    this.httpClient.get<any>(
+      `https://ifsc.razorpay.com/`+this.lenderOnboardingForm.value.ifsccode).subscribe((res)=>{
+        console.log(res);
+      this.lenderOnboardingForm.patchValue({
+        bank : res["BANK"],
+        branch: res["BRANCH"],
+        bankaddress: res["ADDRESS"]
+      });
+    });
+  }
 
   }
 

@@ -216,21 +216,25 @@ export class BorroweronboardingComponent implements OnInit {
    
   }
 
-  // populateBankDetails() {
-  //   this.getBankDetails().subscribe((res)=>{
-  //     this.borrowerOnboardingForm.value.bank = res["BANK"];
-  //     this.borrowerOnboardingForm.value.branch = res["BRANCH"];
-  //     this.borrowerOnboardingForm.value.bankaddress = res["ADDRESS"];
-  //   });
-  // }
-  // getBankDetails() : Observable<any>{
+  populateBankDetails() {
+    this.httpClient.get<any>(
+      `https://ifsc.razorpay.com/`+this.borrowerOnboardingForm.value.ifsccode).subscribe((res)=>{
+        console.log(res);
+      this.borrowerOnboardingForm.patchValue({
+        bank : res["BANK"],
+        branch: res["BRANCH"],
+        bankaddress: res["ADDRESS"]
+      });
+    });
+  }
+  getBankDetails() : Observable<any>{
    
-  //     console.log("inside method");
-     
-  //     return this.httpClient.get<any>(
-  //       `https://ifsc.razorpay.com/`+this.borrowerOnboardingForm.value.ifsccode)
-  //       .pipe(map((response) => response));
-  //   }
+      console.log("inside method");
+      console.log(this.borrowerOnboardingForm.value.ifsccode);
+      return this.httpClient.get<any>(
+        `/ifsc/`+this.borrowerOnboardingForm.value.ifsccode)
+        .pipe(map((response) => response));
+    }
     
   
 

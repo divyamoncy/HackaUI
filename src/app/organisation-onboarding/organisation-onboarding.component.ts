@@ -137,6 +137,17 @@ export class OrganisationOnboardingComponent implements OnInit {
     });
 
   }
+  populateBankDetails() {
+    this.httpClient.get<any>(
+      `https://ifsc.razorpay.com/`+this.organisationOnboardingForm.value.ifsccode).subscribe((res)=>{
+        console.log(res);
+      this.organisationOnboardingForm.patchValue({
+        bank : res["BANK"],
+        branch: res["BRANCH"],
+        bankaddress: res["ADDRESS"]
+      });
+    });
+  }
 
 }
 

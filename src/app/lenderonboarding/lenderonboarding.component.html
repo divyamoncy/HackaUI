@@ -1,11 +1,11 @@
 <nav class="bg-white border-gray-200 px-2 sm:px-4 py-6 rounded shadow-md dark:bg-gray-800">
     <div class="container flex flex-wrap justify-between items-center mx-auto ml-2 mr-2">
-      <a href="https://flowbite.com" class="flex items-center">
-          <img src="/assets/fijo.png" class="h-6 sm:h-9" alt="Flowbite Logo" />
-          <span class="self-center text-3xl font-bold whitespace-nowrap text-blue-500">fijo</span>
-      </a>
-      </div>
-  </nav>
+        <a href="https://flowbite.com" class="flex items-center">
+            <img src="/assets/fijo.png" class="h-6 sm:h-9" alt="Flowbite Logo" />
+            <span class="self-center text-3xl font-bold whitespace-nowrap text-blue-500">fijo</span>
+        </a>
+    </div>
+</nav>
 <div class="flex flex-col md:flex-row min-h-screen">
 
     <div class="md:ml-[12rem] py-6 px-4 md:px-12 basis-1/2 my-auto mr-20">
@@ -117,9 +117,13 @@
                 <div>
                     <label for="ifsccode"
                         class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">IFSC</label>
-                    <input type="text" name="ifsccode" id="ifsccode" formControlName="ifsccode"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        placeholder="Enter IFSC" required="">
+                    <div class="flex flex-row">
+                        <input type="text" name="ifsccode" id="ifsccode" formControlName="ifsccode"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Enter IFSC" required="">
+                        <button class="w-36 mx-6 px-2 py-2 text-xs rounded-md bg-blue-500 text-white"
+                            (click)="populateBankDetails()">Check</button>
+                    </div>
                 </div>
                 <div>
                     <label for="bank"
@@ -160,15 +164,17 @@
 
                 <div>
                     <label for="pancard"
-                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">PAN card copy</label>
-                    <input type="file" class="px-6 py-4 text-xs md:text-base font-semibold rounded-md"
-                        id="pancard" name="pancard">
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">PAN card
+                        copy</label>
+                    <input type="file" class="px-6 py-4 text-xs md:text-base font-semibold rounded-md" id="pancard"
+                        name="pancard">
                     <input type="submit" value="Upload"
                         class="w-36 mx-6 px-2 py-2 text-xs rounded-md bg-blue-500 text-white">
                 </div>
                 <div>
                     <label for="aadharcard"
-                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Aadhar card copy</label>
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Aadhar card
+                        copy</label>
                     <input type="file" class="px-6 py-4 text-xs md:text-base font-semibold rounded-md" id="aadharcard"
                         name="aadharcard">
                     <input type="submit" value="Upload"
@@ -176,7 +182,8 @@
                 </div>
                 <div>
                     <label for="itreturns"
-                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">IT returns of 3 years</label>
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">IT returns of 3
+                        years</label>
                     <input type="file" class="px-6 py-4 text-xs md:text-base font-semibold rounded-md" id="itreturns"
                         name="itreturns">
                     <input type="submit" value="Upload"
@@ -184,21 +191,22 @@
                 </div>
                 <div>
                     <label for="nomineeid"
-                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Nominee ID card</label>
+                        class="mt-3 text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Nominee ID
+                        card</label>
                     <input type="file" class="px-6 py-4 text-xs md:text-base font-semibold rounded-md" id="nomineeid"
                         name="nomineeid">
                     <input type="submit" value="Upload"
                         class="w-36 mx-6 px-2 py-2 text-xs rounded-md bg-blue-500 text-white">
                 </div>
                 <button class="mt-10 px-6 py-4 text-xs md:text-base font-semibold rounded-md bg-blue-500 text-white"
-                type="submit" (click)="changeFocusToThree()">
-                Back
-            </button>
+                    type="submit" (click)="changeFocusToThree()">
+                    Back
+                </button>
                 <button class="mt-10 px-6 py-4 text-xs md:text-base font-semibold rounded-md bg-blue-500 text-white"
                     type="submit" (click)="createCustomer()">
                     Create Account
                 </button>
-                
+
 
             </div>
         </form>
