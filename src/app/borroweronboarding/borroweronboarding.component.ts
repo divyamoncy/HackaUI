@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiCallService } from '../api-call.service';
 import { DBService } from '../db.service';
@@ -213,7 +214,24 @@ export class BorroweronboardingComponent implements OnInit {
         });
     });
    
-
   }
+
+  // populateBankDetails() {
+  //   this.getBankDetails().subscribe((res)=>{
+  //     this.borrowerOnboardingForm.value.bank = res["BANK"];
+  //     this.borrowerOnboardingForm.value.branch = res["BRANCH"];
+  //     this.borrowerOnboardingForm.value.bankaddress = res["ADDRESS"];
+  //   });
+  // }
+  // getBankDetails() : Observable<any>{
+   
+  //     console.log("inside method");
+     
+  //     return this.httpClient.get<any>(
+  //       `https://ifsc.razorpay.com/`+this.borrowerOnboardingForm.value.ifsccode)
+  //       .pipe(map((response) => response));
+  //   }
+    
+  
 
 }
