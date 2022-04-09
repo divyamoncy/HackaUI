@@ -31,6 +31,7 @@ var LenderCollection;
 var InterestDetailsCollection;
 var TransactionsCollection;
 var InvestmentsCollection;
+var UsersCollection;
 
 MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongodb.net/Communiti?retryWrites=true&w=majority", function (err, database) {
   if (err) throw err;
@@ -47,6 +48,7 @@ MongoClient.connect("mongodb+srv://dbuser:hello123@communitycluster.faur0.mongod
   CategoryCollection = db.db("Communiti").collection("category");
   TransactionsCollection = db.db("Communiti").collection("transactions");
   InvestmentsCollection = db.db("Communiti").collection("investments");
+  UsersCollection = db.db("Communiti").collection("users");
   // Start the application after the database connection is ready
   console.log("connected to db");
 });
@@ -213,6 +215,12 @@ app.post('/insertInterestDetails', (req, res) => {
   res.send({"success":"done"});
 })
 
+app.post('/insertUser', (req, res) => {
+  console.log('POST request to insert user data');
+  UsersCollection.insertOne(req.body);
+  res.send({"success":"done"});
+})
+
 app.post('/insertTransaction', (req, res) => {
   console.log('POST request to insert transaction');
   TransactionsCollection.insertOne(req.body);
@@ -317,6 +325,16 @@ app.get('/:id/loans', function(req , res){
   }); 
 });
 
+app.post('/userdetails', function(req , res){
+  console.log('GET request to get user credentials');
+  console.log(req.body);
+  UsersCollection.find({"email" : req.body.email, "password" : req.body.password}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.send(result);
+  }); 
+});
+
 app.get('/:id/closedloans', function(req , res){
   console.log('GET request to get closed loans by customer ID');
   LoanCollection.find({"customerId" : req.params.id, "status" : "closed"}).toArray(function(err, result) {
@@ -340,6 +358,16 @@ app.get('/investment/:customerId', function (req, res) {
 app.get('/borrower/:customerId', function (req, res) {
   console.log('GET request to get borrower details by customer id');
   BorrowerCollection.find({ "customerId": req.params.customerId }).toArray(function (err, result) {
+    if (err) throw err;
+    console.log("found customer");
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.post('/userdetailsForCustomer', function (req, res) {
+  console.log('POST request to get borrower details by email id');
+  BorrowerCollection.find({ "emailAddress": req.body.emailAddress }).toArray(function (err, result) {
     if (err) throw err;
     console.log("found customer");
     console.log(result);

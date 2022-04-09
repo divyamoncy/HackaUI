@@ -34,6 +34,17 @@ export class DBService {
               })
               .pipe(map((response) => response));
         }
+    createUser(
+      user : any
+        ): Observable<any> {
+          //console.log(dbLender);
+          return this.httpClient.post<any>(
+            `/insertUser`, user, {
+                headers: { 
+                  'Content-Type': 'application/json' }
+              })
+              .pipe(map((response) => response));
+        }
 
     insertLoan(
       loan
@@ -142,10 +153,33 @@ export class DBService {
             .pipe(map((response) => response));
     }
 
+    login(email, pwd) : Observable<any>{
+      console.log("email"+email);
+      console.log("password"+pwd);
+      return this.httpClient.post(
+        `/userdetails`, {"email":email, "password":pwd}, {
+          headers: { 
+            'Content-Type': 'application/json' }
+        })
+        .pipe(map((response) => response));
+
+    }
+
     getBorrowerDetailsByCustomerId(customerId): Observable<any> {
       //customerId='029417';
       return this.httpClient.get<any>(`/borrower/`+customerId)
       .pipe(map((response) => response));
+    }
+
+    getBorrowerDetailsByEmailId(emailId): Observable<any> {
+      //customerId='029417';
+      let emailAddress = { "emailAddress": [{"address": emailId}]};
+      return this.httpClient.post(
+        `/userdetailsForCustomer`, emailAddress, {
+          headers: { 
+            'Content-Type': 'application/json' }
+        })
+        .pipe(map((response) => response));
     }
 
     getLenderDetailsByCustomerId(customerId): Observable<any> {

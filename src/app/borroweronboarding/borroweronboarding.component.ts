@@ -202,15 +202,17 @@ export class BorroweronboardingComponent implements OnInit {
           this.apiCallService.postAccount(this.account, tok).subscribe((response)=>{
             console.log(response.accountId);
             this.userService.setAccountId(response.accountId);
+            this.dbBorrower.accountId = response.accountId;
+            this.dbService.insertBorrower(this.dbBorrower).subscribe((resp)=>{
+              console.log("Inside DB");
+              console.log(resp);
+              });
             this.loading = 2;
             this.router.navigate(['/borrowerdashboard']);
             
           });
         });
-        this.dbService.insertBorrower(this.dbBorrower).subscribe((resp)=>{
-          console.log("Inside DB");
-          console.log(resp);
-          });
+        
         });
     });
    

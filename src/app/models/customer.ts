@@ -74,6 +74,7 @@ export interface DBBorrower {
     guarantoremail: string;
     guarantoraddress: string;
     experience: number;
+    accountId: string;
     
 }
 
