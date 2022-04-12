@@ -1,4 +1,4 @@
-# HackaUI
+# fijo - Hybrid Retail Lending Model
 
 ## Steps to run
 
