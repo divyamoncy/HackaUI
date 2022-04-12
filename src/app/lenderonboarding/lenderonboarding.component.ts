@@ -99,7 +99,7 @@ export class LenderonboardingComponent implements OnInit {
     });
     this.emailAddress.push({
       "type": "HOME",
-      "address": "sample@gmail.com"
+      "address": this.userService.getEmail()
     });
     this.identification.type="ARNU";
     this.identification.id = this.lenderOnboardingForm.value.aadhar;
@@ -157,13 +157,15 @@ export class LenderonboardingComponent implements OnInit {
           this.apiCallService.postAccount(this.account, tok).subscribe((response)=>{
             console.log(response.accountId);
             this.userService.setAccountId(response.accountId);
-            this.router.navigate(['/lenderdashboard']);
+            this.dbService.insertLender(this.dbLender).subscribe((resp)=>{
+              this.router.navigate(['/lenderdashboard']);
+              console.log("Inside DB");
+              console.log(resp);
+              });
+            
           });
         });
-        this.dbService.insertLender(this.dbLender).subscribe((resp)=>{
-          console.log("Inside DB");
-          console.log(resp);
-          });
+        
         });
     });
   }

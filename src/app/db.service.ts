@@ -184,6 +184,19 @@ export class DBService {
         .pipe(map((response) => response));
     }
 
+    getLenderDetailsByEmailId(emailId): Observable<any> {
+      //customerId='029417';
+      let emailAddress = {};
+       emailAddress["emailAddress"] = [{"type":"HOME","address": emailId}];
+      //console.log("Filter" + emailAddress.toString());
+      return this.httpClient.post(
+        `/lenderdetailsForCustomer`, emailAddress, {
+          headers: { 
+            'Content-Type': 'application/json' }
+        })
+        .pipe(map((response) => response));
+    }
+
     getLenderDetailsByCustomerId(customerId): Observable<any> {
       //  customerId='029417';
         return this.httpClient.get<any>(`/lender/`+customerId)

@@ -376,6 +376,17 @@ app.post('/userdetailsForCustomer', function (req, res) {
   });
 });
 
+app.post('/lenderdetailsForCustomer', function (req, res) {
+  console.log('POST request to get borrowerlender details by email id');
+  console.log("In server "+req.body.emailAddress[0]);
+  LenderCollection.find({ "emailAddress": req.body.emailAddress }).toArray(function (err, result) {
+    if (err) throw err;
+    console.log("found customer");
+    console.log(result);
+    res.send(result);
+  });
+});
+
 app.get('/lender/:customerId', function (req, res) {
   console.log('GET request to get lender details by customer id');
   LenderCollection.find({ "customerId": req.params.customerId }).toArray(function (err, result) {

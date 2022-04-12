@@ -42,7 +42,16 @@ export class SigninComponent implements OnInit {
             this.userService.setEmail(this.signinForm.value.email);
             this.router.navigate(['/borrowerdashboard']);
           });
-          
+        }
+          if (resp[0].type == "lender") {
+            this.dbService.getLenderDetailsByEmailId(this.signinForm.value.email).subscribe((res) => {
+              console.log("LenderDetails"+res[0].customerId);
+              this.userService.setLenderDetails(res[0].customerId, "lender");
+              this.userService.setAccountId(res[0].accountId);
+              this.userService.setEmail(this.signinForm.value.email);
+              this.router.navigate(['/lenderdashboard']);
+            });
+            
         }
 
       }
