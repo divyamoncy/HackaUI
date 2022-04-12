@@ -367,6 +367,7 @@ app.get('/borrower/:customerId', function (req, res) {
 
 app.post('/userdetailsForCustomer', function (req, res) {
   console.log('POST request to get borrower details by email id');
+  console.log("In server "+req.body.emailAddress[0]);
   BorrowerCollection.find({ "emailAddress": req.body.emailAddress }).toArray(function (err, result) {
     if (err) throw err;
     console.log("found customer");

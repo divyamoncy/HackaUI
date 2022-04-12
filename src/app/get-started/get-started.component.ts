@@ -23,7 +23,7 @@ export class GetStartedComponent implements OnInit {
   }
 
   lenderSignUp(){
-    this.router.navigate(['/lendersignup']);
+    this.router.navigate(['/lenderonboarding']);
   }
 
   organisationSignUp(){

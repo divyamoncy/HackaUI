@@ -7,6 +7,7 @@ export class UserService {
   private userType: string;
   private customerID: string;
   private accountId: string;
+  private email: string;
   constructor() { }
   setBorrowerDetails(customerId: string, userType: string) {
     this.customerID = customerId;
@@ -29,6 +30,16 @@ export class UserService {
     //return "010100294300000";
     //return this.accountId;
     return sessionStorage.getItem('accountId');
+  }
+
+  setEmail(email: string) {
+    this.email = email;
+    sessionStorage.setItem('email', email);
+  }
+  getEmail() {
+    //return "010100294300000";
+    //return this.accountId;
+    return sessionStorage.getItem('email');
   }
   getCustomerId() {
    // return "029417";

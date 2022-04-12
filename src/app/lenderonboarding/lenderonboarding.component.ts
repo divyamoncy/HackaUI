@@ -26,21 +26,24 @@ export class LenderonboardingComponent implements OnInit {
   public dbLender: DBLender;
   public account: Account;
   public accountDetails: AccountAdditionalDetails;
+  public loading: number;
+  public loadText: string;
   
   constructor(public formBuilder: FormBuilder, private apiCallService: ApiCallService, public httpClient: HttpClient, 
     private dbService: DBService, private userService: UserService, private router: Router) { 
     this.focus = 1;
+    this.loading = 0;
     this.lenderOnboardingForm = formBuilder.group({
-      firstname: ['',Validators.required],
-      lastname: ['', Validators.required],
-      aadhar: ['', Validators.required],
-      pan: ['', Validators.required],
-      address1: ['', Validators.required],
-      address2: ['', Validators.required],
-      phonenumber: ['', Validators.required],
+      firstname: ['Deepa',Validators.required],
+      lastname: ['Sharma', Validators.required],
+      aadhar: ['435300987690', Validators.required],
+      pan: ['FYQPF0438P', Validators.required],
+      address1: ['9D, Durga Petals, Marathahalli', Validators.required],
+      address2: ['Bengaluru', Validators.required],
+      phonenumber: ['9605180983', Validators.required],
       dateofbirth: ['', Validators.required],
-      accountno: ['', Validators.required],
-      ifsccode: ['', Validators.required],
+      accountno: ['123678955678', Validators.required],
+      ifsccode: ['HDFC0CAGSBK', Validators.required],
       bank: ['', Validators.required],
       branch: ['', Validators.required],
       bankaddress: ['', Validators.required],
@@ -74,6 +77,8 @@ export class LenderonboardingComponent implements OnInit {
   }
 
   createCustomer() {
+    this.loading = 1;
+    this.loadText ="We are almost there 🚀";
   this.customer = {} as Customer;
     this.dbLender = {} as DBLender;
     this.identification = {} as Identification;

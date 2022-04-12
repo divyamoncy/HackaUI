@@ -8,7 +8,7 @@
 </nav>
 <div class="flex flex-col md:flex-row min-h-screen">
 
-    <div class="md:ml-[12rem] py-6 px-4 md:px-12 basis-1/2 my-auto mr-20">
+    <div class="md:ml-[12rem] py-6 px-4 md:px-12 basis-1/2 my-auto mr-20" *ngIf="loading==0">
 
         <p class="text-gray-700 font-bold text-4xl text-left">
             Let's get you <span class="text-blue-500">onboard</span>.
@@ -213,5 +213,13 @@
 
 
     </div>
+    <div class="flex flex-col grow" *ngIf="loading==1">
+        <div class="w-[50vw] m-auto flex flex-col">
+          <img class="m-auto h-[20vw]" src="/assets/loading.gif" alt="No results" />
+          <p class="mt-6 font-bold text-xl text-center">
+            {{loadText}}
+          </p>
+        </div>
+      </div>
 
 </div>

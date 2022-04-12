@@ -37,28 +37,28 @@ export class BorroweronboardingComponent implements OnInit {
     this.focus = 1;
     this.loading = 0;
     this.borrowerOnboardingForm = formBuilder.group({
-      firstname: ['',Validators.required],
-      lastname: ['', Validators.required],
-      aadhar: ['', Validators.required],
-      pan: ['', Validators.required],
-      address1: ['', Validators.required],
-      address2: ['', Validators.required],
-      phonenumber: ['', Validators.required],
+      firstname: ['Alan',Validators.required],
+      lastname: ['George', Validators.required],
+      aadhar: ['301834567788', Validators.required],
+      pan: ['FYQPF0997G', Validators.required],
+      address1: ['7D, Durga Petals, Marathahalli', Validators.required],
+      address2: ['Bengaluru', Validators.required],
+      phonenumber: ['9088774455', Validators.required],
       dateofbirth: ['', Validators.required],
-      accountno: ['', Validators.required],
-      ifsccode: ['', Validators.required],
+      accountno: ['9000067896', Validators.required],
+      ifsccode: ['HDFC0CAGSBK', Validators.required],
       bank: ['', Validators.required],
       branch: ['', Validators.required],
       bankaddress: ['', Validators.required],
-      companyname: ['', Validators.required],
-      monthlysalary: ['', Validators.required],
-      experience: ['', Validators.required],
-      referralname: ['', Validators.required],
-      referralphone: ['', Validators.required],
-      guarantorname: ['', Validators.required],
-      guarantorphone: ['', Validators.required],
-      guarantoremail: ['', Validators.required],
-      guarantoraddress: ['', Validators.required]
+      companyname: ['Infosys', Validators.required],
+      monthlysalary: ['56000', Validators.required],
+      experience: ['7', Validators.required],
+      referralname: ['Divya Seth', Validators.required],
+      referralphone: ['8909956789', Validators.required],
+      guarantorname: ['Athira Hegde', Validators.required],
+      guarantorphone: ['7089956089', Validators.required],
+      guarantoremail: ['athira.hegde@gmail.com', Validators.required],
+      guarantoraddress: ['Vilaasa, Marathahalli', Validators.required]
       
   });
   }
@@ -82,35 +82,35 @@ export class BorroweronboardingComponent implements OnInit {
   changeFocusToFour() {
     this.focus = 4;
   }
-  onReady(callback) {
-    setTimeout( function(){ 
-      // Do something after 1 second 
-      this.loadText ="Saving your details 💼";
-    }  , 500 );
-     setTimeout( function(){ 
-      // Do something after 1 second 
-      this.loadText ="Doing some magic 👾";
-    }  , 1000 );
+  // onReady(callback) {
+  //   setTimeout( function(){ 
+  //     // Do something after 1 second 
+  //     this.loadText ="Saving your details 💼";
+  //   }  , 500 );
+  //    setTimeout( function(){ 
+  //     // Do something after 1 second 
+  //     this.loadText ="Doing some magic 👾";
+  //   }  , 1000 );
     
-    setTimeout( function(){ 
-      // Do something after 1 second 
-      this.loadText ="We are almost there 🚀";
-    }  , 1400 );
+  //   setTimeout( function(){ 
+  //     // Do something after 1 second 
+  //     this.loadText ="We are almost there 🚀";
+  //   }  , 1400 );
      
-    setTimeout( function(){ 
-      // Do something after 1 second 
-      this.loadText ="Getting things ready ✔️";
-    }  , 1900 );
+  //   setTimeout( function(){ 
+  //     // Do something after 1 second 
+  //     this.loadText ="Getting things ready ✔️";
+  //   }  , 1900 );
      
     
-      var intervalID = window.setInterval(checkReady, 3000);
-      function checkReady() {
-          if (this.loading==2) {
-              window.clearInterval(intervalID);
-              callback.call(this);
-          }
-      }
-  }
+  //     var intervalID = window.setInterval(checkReady, 3000);
+  //     function checkReady() {
+  //         if (this.loading==2) {
+  //             window.clearInterval(intervalID);
+  //             callback.call(this);
+  //         }
+  //     }
+  // }
 
   
 
@@ -140,7 +140,7 @@ export class BorroweronboardingComponent implements OnInit {
     });
     this.emailAddress.push({
       "type": "HOME",
-      "address": "sample@gmail.com"
+      "address": this.userService.getEmail()
     });
     this.identification.type="ARNU";
     this.identification.id = this.borrowerOnboardingForm.value.aadhar;

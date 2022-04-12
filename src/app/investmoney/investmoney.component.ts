@@ -17,18 +17,18 @@ export class InvestmoneyComponent implements OnInit {
   public nextInterestDueDate: any;
 
 
-  constructor(private dbService: DBService, private userService: UserService, public formBuilder: FormBuilder, private apiCallService: ApiCallService,private router: Router) {
+  constructor(private dbService: DBService, private userService: UserService, public formBuilder: FormBuilder, private apiCallService: ApiCallService, private router: Router) {
     this.investMoney = formBuilder.group({
       amount: ['', Validators.required],
       frequency: ['', Validators.required]
     });
-   }
+  }
 
   ngOnInit(): void {
-   this.dbService.getLenderDetailsByCustomerId(this.userService.getCustomerId()).subscribe((response) => {
-     console.log(response);
+    this.dbService.getLenderDetailsByCustomerId(this.userService.getCustomerId()).subscribe((response) => {
+      console.log(response);
       this.customerId = response[0].customerId;
-   });
+    });
   }
 
   insertInvestment() {
@@ -43,8 +43,20 @@ export class InvestmoneyComponent implements OnInit {
     // this.nextInterestDueDate = new Date( Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     this.dbService.insertInvestment(data).subscribe((response) => {
       console.log(response);
-      this.router.navigate(['/lenderdashboard']);
+      let transaction = {};
+      transaction["customerId"] = this.customerId;
+      transaction["date"] = new Date().toISOString().split("T")[0];
+      transaction["amount"] = this.investMoney.value.amount;
+      transaction["description"] = "Investment";
+      transaction["type"] = "debit";
+      this.dbService.insertTransaction(transaction).subscribe((reso) => {
+        console.log(reso);
+        //this.router.navigate(['/borrowerdashboard']);
+        this.router.navigate(['/lenderdashboard']);
+      });
+      
+
     });
-    
+
   }
 }

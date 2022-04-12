@@ -173,7 +173,9 @@ export class DBService {
 
     getBorrowerDetailsByEmailId(emailId): Observable<any> {
       //customerId='029417';
-      let emailAddress = { "emailAddress": [{"address": emailId}]};
+      let emailAddress = {};
+       emailAddress["emailAddress"] = [{"type":"HOME","address": emailId}];
+      //console.log("Filter" + emailAddress.toString());
       return this.httpClient.post(
         `/userdetailsForCustomer`, emailAddress, {
           headers: { 
